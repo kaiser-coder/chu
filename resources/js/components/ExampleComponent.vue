@@ -1,5 +1,6 @@
 <template lang="html">
-  <v-app app>
+  <v-app app >
+      <div class="card-body">The card body</div>
       <v-container>
           <v-btn color="primary">
               Primary
