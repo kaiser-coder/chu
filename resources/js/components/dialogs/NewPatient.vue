@@ -14,6 +14,7 @@
                   outlined
                   dense
                   type="text"
+                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -25,6 +26,7 @@
                   dense
                   type="text"
                   :items="['Monsieur', 'Madame']"
+                  required
                 ></v-select
               ></v-col>
             </v-row>
@@ -35,6 +37,7 @@
                   outlined
                   dense
                   type="text"
+                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -55,6 +58,7 @@
                   outlined
                   dense
                   type="date"
+                  required
                 ></v-text-field
               ></v-col>
               <v-col lg="6" class="px-0 pr-1"
@@ -63,6 +67,7 @@
                   outlined
                   dense
                   type="number"
+                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -73,6 +78,7 @@
                   outlined
                   dense
                   type="text"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -83,6 +89,7 @@
                   outlined
                   dense
                   type="text"
+                  required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -93,6 +100,7 @@
                   outlined
                   dense
                   type="text"
+                  required
                 ></v-textarea>
               </v-col>
             </v-row>
