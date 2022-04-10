@@ -18,7 +18,6 @@
                 <v-row>
                   <v-col class="pa-0" cols="12">
                     <v-text-field
-                      v-model="email"
                       label="Adresse email"
                       filled
                       dense
@@ -30,12 +29,12 @@
                 <v-row>
                   <v-col class="pa-0" cols="12">
                     <v-text-field
-                      v-model="password"
                       label="Mot de passe"
                       filled
                       dense
                       rounded
                       required
+                      type="password"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -54,6 +53,9 @@
     </v-col>
   </v-row>
 </template>
+
+<script>
+</script>
 
 <style scoped lang="scss">
 .full-bg {

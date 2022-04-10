@@ -7,10 +7,10 @@ export const routes = [
       ]
    },
    {
-      path: '/app',
+      path: '/',
       component: () => import('./layouts/MainLayout.vue'),
       children: [
-         { path: 'home', component: () => import('./pages/Home.vue') }
+         { path: 'dashboard', component: () => import('./pages/Dashboard.vue') }
       ]
    }
 ];

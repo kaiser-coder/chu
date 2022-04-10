@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main id="content">
+    <v-main class="align-center">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -9,9 +9,3 @@
 <script>
 export default {};
 </script>
-
-<style scoped>
-#content {
-  align-items: center;
-}
-</style>
