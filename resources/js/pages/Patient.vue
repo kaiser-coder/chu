@@ -3,7 +3,7 @@
     <v-row>
       <v-col lg="12">
         <v-btn color="warning">Nouveau</v-btn>
-        <NewPatient class="mt-5" />
+        <NewPatient />
       </v-col>
     </v-row>
     <v-row>

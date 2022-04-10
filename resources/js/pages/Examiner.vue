@@ -3,7 +3,7 @@
     <v-row>
       <v-col lg="12">
         <v-btn color="warning">Nouveau</v-btn>
-        <NewExaminer class="mt-5" />
+        <NewExaminer />
       </v-col>
     </v-row>
     <v-row>
