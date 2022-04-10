@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer dense dark app>
+  <v-navigation-drawer color="primary" dense dark app>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6"> Application </v-list-item-title>
@@ -12,7 +12,11 @@
     <v-list dense nav>
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-content class="pl-10">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <router-link :to="item.path">
+            <v-list-item-title>
+              {{ item.title }}
+            </v-list-item-title>
+          </router-link>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -21,14 +25,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      items: [
-        { title: "Tableau de bord" },
-        { title: "Patients" },
-        { title: "Examinateurs" },
-      ],
-    };
-  },
+  props: ["items"],
 };
 </script>
+
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+  color: white;
+}
+</style>

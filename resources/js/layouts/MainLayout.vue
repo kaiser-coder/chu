@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Sidebar />
+    <Sidebar :items="items" />
 
-    <Appbar />
+    <Appbar :title="title" />
     <v-main>
       <v-container>
         <router-view></router-view>
@@ -16,6 +16,31 @@ import Sidebar from "../components/Sidebar.vue";
 import Appbar from "../components/Appbar.vue";
 
 export default {
+  data() {
+    return {
+      items: [
+        { title: "Tableau de bord", path: "dashboard" },
+        { title: "Patients", path: "patients" },
+        { title: "Examinateurs", path: "examiners" },
+      ],
+      title: "Tableau de bord",
+    };
+  },
   components: { Sidebar, Appbar },
+  updated() {
+    const { pathname } = globalThis.location;
+    this.setTitle(pathname);
+  },
+  mounted() {
+    const { pathname } = globalThis.location;
+    this.setTitle(pathname);
+  },
+  methods: {
+    setTitle(path) {
+      this.title = this.items.filter(
+        (d) => d.path === path.replace("/", "")
+      )[0].title;
+    },
+  },
 };
 </script>
