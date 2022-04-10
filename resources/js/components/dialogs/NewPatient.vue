@@ -3,76 +3,121 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">User Profile</span>
+          <span class="text-h5">Nouveau patient</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Legal first name*" required></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
+              <v-col lg="12" class="pa-0"
+                ><v-text-field
+                  label="Numéro"
+                  outlined
+                  dense
+                  type="text"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0"
+                ><v-select
+                  label="Civilité"
+                  outlined
+                  dense
+                  type="text"
+                  :items="['Monsieur', 'Madame']"
+                ></v-select
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0"
+                ><v-text-field
+                  label="Nom"
+                  outlined
+                  dense
+                  type="text"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0"
+                ><v-text-field
+                  label="Prénom"
+                  outlined
+                  dense
+                  type="text"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col lg="6" class="px-0 pr-1"
+                ><v-text-field
+                  label="Date de naissance"
+                  outlined
+                  dense
+                  type="date"
+                ></v-text-field
+              ></v-col>
+              <v-col lg="6" class="px-0 pr-1"
+                ><v-text-field
+                  label="Age"
+                  outlined
+                  dense
+                  type="number"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0">
                 <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
+                  label="Adresse"
+                  outlined
+                  dense
+                  type="text"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0">
                 <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
+                  label="Profession"
+                  outlined
+                  dense
+                  type="text"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
-                <v-text-field label="Email*" required></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Password*"
-                  type="password"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-autocomplete
-                  :items="[
-                    'Skiing',
-                    'Ice hockey',
-                    'Soccer',
-                    'Basketball',
-                    'Hockey',
-                    'Reading',
-                    'Writing',
-                    'Coding',
-                    'Basejump',
-                  ]"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
+            </v-row>
+            <v-row>
+              <v-col lg="12" class="pa-0">
+                <v-textarea
+                  label="Remarque"
+                  outlined
+                  dense
+                  type="text"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">
-            Close
+            Annuler
           </v-btn>
           <v-btn color="blue darken-1" text @click="dialog = false">
-            Save
+            Sauvegrader
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      dialog: true,
+    };
+  },
+};
+</script>
