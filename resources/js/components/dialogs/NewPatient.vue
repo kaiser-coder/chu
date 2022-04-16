@@ -1,131 +1,89 @@
 <template>
-  <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Nouveau patient</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col lg="12" class="pa-0"
-                ><v-text-field
-                  label="Numéro"
-                  outlined
-                  dense
-                  type="text"
-                  required
-                ></v-text-field
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0"
-                ><v-select
-                  label="Civilité"
-                  outlined
-                  dense
-                  type="text"
-                  :items="['Monsieur', 'Madame']"
-                  required
-                ></v-select
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0"
-                ><v-text-field
-                  label="Nom"
-                  outlined
-                  dense
-                  type="text"
-                  required
-                ></v-text-field
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0"
-                ><v-text-field
-                  label="Prénom"
-                  outlined
-                  dense
-                  type="text"
-                ></v-text-field
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="6" class="px-0 pr-1"
-                ><v-text-field
-                  label="Date de naissance"
-                  outlined
-                  dense
-                  type="date"
-                  required
-                ></v-text-field
-              ></v-col>
-              <v-col lg="6" class="px-0 pr-1"
-                ><v-text-field
-                  label="Age"
-                  outlined
-                  dense
-                  type="number"
-                  required
-                ></v-text-field
-              ></v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0">
-                <v-text-field
-                  label="Adresse"
-                  outlined
-                  dense
-                  type="text"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0">
-                <v-text-field
-                  label="Profession"
-                  outlined
-                  dense
-                  type="text"
-                  required
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col lg="12" class="pa-0">
-                <v-textarea
-                  label="Remarque"
-                  outlined
-                  dense
-                  type="text"
-                  required
-                ></v-textarea>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">
-            Annuler
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">
-            Sauvegrader
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-row>
+  <v-form>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="800px">
+        <v-stepper value="1">
+          <v-stepper-header>
+            <template v-for="step in steps">
+              <v-stepper-step
+                editable
+                :key="`${step.key}-step`"
+                :step="step.key"
+              >
+                {{ step.title }}
+              </v-stepper-step>
+
+              <v-divider
+                v-if="step.key !== steps.length"
+                :key="step.key"
+              ></v-divider>
+            </template>
+          </v-stepper-header>
+
+          <v-card>
+            <v-stepper-items>
+              <!-- Patient form -->
+              <v-stepper-content :step="1">
+                <v-card-text>
+                  <Patient />
+                </v-card-text>
+              </v-stepper-content>
+
+              <!-- Assistant form -->
+              <v-stepper-content :step="2">
+                <v-card-text>
+                  <Assistant />
+                </v-card-text>
+              </v-stepper-content>
+
+              <!-- Consultation form -->
+              <v-stepper-content :step="3">
+                <v-card-text>
+                  <Consultation />
+                </v-card-text>
+              </v-stepper-content>
+
+              <!-- Treatment form -->
+              <v-stepper-content :step="4">
+                <v-card-text>
+                  <Treatment />
+                </v-card-text>
+              </v-stepper-content>
+
+              <v-card-actions class="pb-4 px-10 justify-end">
+                <v-btn color="primary"> Continuer </v-btn>
+
+                <v-btn text> Abandonner </v-btn>
+              </v-card-actions>
+            </v-stepper-items>
+          </v-card>
+        </v-stepper>
+      </v-dialog>
+    </v-row>
+  </v-form>
 </template>
 
 <script>
+import Patient from "../forms/Patient.vue";
+import Assistant from "../forms/Assistant.vue";
+import Consultation from "../forms/Consultation.vue";
+import Treatment from "../forms/Treatment.vue";
+
 export default {
   data() {
     return {
       dialog: true,
+      steps: [
+        {
+          key: 1,
+          title: "Nouveau patient",
+        },
+        { key: 2, title: "Accompagnant" },
+        { key: 3, title: "Consultation" },
+        { key: 4, title: "Traitement" },
+      ],
     };
   },
+  components: { Patient, Assistant, Consultation, Treatment },
 };
 </script>
