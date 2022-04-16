@@ -104,6 +104,7 @@ export default {
           .post("/api/auth", formData)
           .then((result) => {
             console.log(result);
+            this.$router.push("/dashboard");
           })
           .catch((error) => {
             console.error(error);

@@ -28,12 +28,12 @@ export default {
   },
   components: { Sidebar, Appbar },
   updated() {
-    const { pathname } = globalThis.location;
-    this.setTitle(pathname);
+    const { path } = this.$router.history.current;
+    this.setTitle(path);
   },
   mounted() {
-    const { pathname } = globalThis.location;
-    this.setTitle(pathname);
+    const { path } = this.$router.history.current;
+    this.setTitle(path);
   },
   methods: {
     setTitle(path) {
