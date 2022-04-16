@@ -9,8 +9,12 @@ class AuthController extends Controller
 {
     public function signin(Request $request)
     {
-        $user = $this->User::findOne();
-        return response('User authenticated', 200);
+			$user = User::where([
+				'email' => $request->input('email'),
+				'password' => $request->input('password')
+			])->firstOrFail();
+
+			return response('User authenticated', 200);
     }
 
     public function signout(Request $request)

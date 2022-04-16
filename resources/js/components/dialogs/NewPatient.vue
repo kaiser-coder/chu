@@ -53,7 +53,7 @@
               <v-card-actions class="pb-4 px-10 justify-end">
                 <v-btn color="primary"> Continuer </v-btn>
 
-                <v-btn text> Abandonner </v-btn>
+                <v-btn text @click="dialog = false"> Abandonner </v-btn>
               </v-card-actions>
             </v-stepper-items>
           </v-card>
