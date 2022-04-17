@@ -9,12 +9,16 @@ class AuthController extends Controller
 {
     public function signin(Request $request)
     {
-			$user = User::where([
-				'email' => $request->input('email'),
-				'password' => $request->input('password')
-			])->firstOrFail();
+        $user = User::where([
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ])->firstOrFail();
 
-			return response('User authenticated', 200);
+        if($user) {
+            $token = $user->createToken('App Token');
+        }
+        
+        return response()->json(['token' => $token->plainTextToken], 200);
     }
 
     public function signout(Request $request)
