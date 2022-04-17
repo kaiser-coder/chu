@@ -103,7 +103,9 @@ export default {
         axios
           .post("/api/auth", formData)
           .then((result) => {
-            console.log(result);
+            const { data } = result;
+            this.$session.start();
+            this.$session.set("app_token", data.token);
             this.$router.push("/dashboard");
           })
           .catch((error) => {

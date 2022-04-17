@@ -9,6 +9,7 @@ window.Vue = require('vue').default;
 import Vue from 'vue';
 import vuetify from './plugins/vuetify';
 import VueRouter from 'vue-router';
+import VueSession from "vue-session";
 
 import { routes } from './routes';
 import App from './App';
@@ -31,6 +32,7 @@ import App from './App';
  */
 
 Vue.use(VueRouter);
+Vue.use(VueSession);
 
 const app = new Vue({
     el: '#app',
