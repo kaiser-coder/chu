@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="mr-auto ml-auto" lg="8">
+      <v-col class="mr-auto ml-auto" lg="10">
         <v-card :loading="isLoading" elevation="3">
           <v-row class="ma-0">
-            <v-col class="pa-0" lg="7"
+            <v-col class="pa-0" lg="6"
               ><div class="full-bg pa-10">
                 <v-alert
                   class="alert"
@@ -20,7 +20,7 @@
                 </v-alert>
               </div>
             </v-col>
-            <v-col class="pa-0" lg="5">
+            <v-col class="pa-0" lg="6">
               <v-form class="pa-10" lazy-validation ref="form">
                 <v-card-title
                   class="pl-0 mb-5 d-flex flex-column justify-center"

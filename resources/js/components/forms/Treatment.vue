@@ -7,6 +7,7 @@
             label="Type"
             outlined
             dense
+            name="traitement_type"
             :items="[
               'Aucun',
               'ECG',
@@ -27,6 +28,7 @@
               'Radio dorsale',
             ]"
             required
+            :rules="rules.type"
           ></v-select>
         </v-col>
       </v-row>
@@ -36,14 +38,16 @@
             label="Autres examens paracliniques supplémentaires et résultats"
             outlined
             dense
+            name="traitement_autre"
             type="text"
             required
+            :rules="rules.treatment"
           ></v-textarea>
         </v-col>
       </v-row>
       <v-row class="mb-2">
         <v-col cols="6" class="pa-0">
-          <v-btn color="primary" class="mr-1" @click="handleSubmit">
+          <v-btn color="primary" class="mr-1" @click="handleClick">
             Soumettre
           </v-btn>
           <v-btn text @click="dialog = false"> Abandonner </v-btn>
@@ -55,13 +59,25 @@
 
 <script>
 export default {
+  data() {
+    return {
+      rules: {
+        type: [(v) => !!v || "Le champ type est requis"],
+        treatment: [(v) => !!v || "Le champ autres examen est requis"],
+      },
+      newTreatment: {
+        traitement_type: "",
+        traitement_autre: "",
+      },
+    };
+  },
   methods: {
-    handleSubmit() {
+    handleClick() {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
         console.log("Final form submit");
-        // this.$emit('onSubmit', smthg)
+        this.$emit("onNextStep", null, newTreatment);
       }
     },
   },

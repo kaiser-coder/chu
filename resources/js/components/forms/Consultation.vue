@@ -10,7 +10,7 @@
               dense
               :items="['One', 'Two']"
               required
-              name="docteur"
+              name="consulter_id_medecin"
               :rules="rules.examiner"
             ></v-select>
           </v-col>
@@ -23,7 +23,7 @@
               dense
               type="date"
               required
-              name=""
+              name="consulter_date_consul"
               :rules="rules.date"
             ></v-text-field>
           </v-col>
@@ -34,6 +34,7 @@
               dense
               type="time"
               required
+              name="consulter_heure"
               :rules="rules.time"
             ></v-text-field>
           </v-col>
@@ -52,7 +53,9 @@
               label="Véhicule responsable"
               outlined
               dense
+              name="conducteur_vehicule"
               :items="['Voiture', 'Moto', 'Bicyclette', 'Aucun']"
+              :rules="rules.car"
               required
             ></v-select>
           </v-col>
@@ -64,6 +67,8 @@
               outlined
               dense
               type="text"
+              name="conducteur_nom"
+              :rules="rules.name"
               required
             ></v-text-field>
           </v-col>
@@ -71,10 +76,12 @@
         <v-row>
           <v-col cols="12" class="pa-0">
             <v-text-field
-              label="Numéro du véhicule"
+              label="Contact du responsable"
               outlined
               dense
               type="text"
+              name="conducteur_contact"
+              :rules="rules.contact"
               required
             ></v-text-field>
           </v-col>
@@ -86,6 +93,8 @@
               outlined
               dense
               type="text"
+              name="conducteur_adresse"
+              :rules="rules.address"
               required
             ></v-text-field>
           </v-col>
@@ -97,6 +106,8 @@
               outlined
               dense
               type="text"
+              name="conduteur_cin"
+              :rules="rules.cin"
               required
             ></v-text-field>
           </v-col>
@@ -112,10 +123,12 @@
         <v-row>
           <v-col cols="12" class="pa-0">
             <v-select
-              label="Catégorie"
+              label="Victime"
               outlined
               dense
               :items="['Aucun', 'Passager', 'Piéton']"
+              name="cause_victime"
+              :rules="rules.victim"
               required
             ></v-select>
           </v-col>
@@ -127,6 +140,8 @@
               outlined
               dense
               :items="['Aucun', 'Voiture', 'Moto', 'Bicyclette']"
+              name="cause_vehicule"
+              :rules="rules.car"
               required
             ></v-select>
           </v-col>
@@ -138,6 +153,8 @@
               outlined
               dense
               :items="['Aucun', 'Ceinturé', 'Casqué']"
+              :rules="rules.security"
+              name="cause_securite"
               required
             ></v-select>
           </v-col>
@@ -149,6 +166,8 @@
               outlined
               dense
               :items="['Aucun', 'Alcool', 'Médicaments', 'Stupéfiants']"
+              :rules="rules.others"
+              name="cause_autre"
               required
             ></v-select>
           </v-col>
@@ -160,6 +179,8 @@
               outlined
               dense
               type="text"
+              name="consulter_histoire"
+              :rules="rules.history"
               required
             ></v-textarea>
           </v-col>
@@ -171,6 +192,8 @@
               outlined
               dense
               type="text"
+              name="consulter_examen"
+              :rules="rules.examination"
               required
             ></v-textarea>
           </v-col>
@@ -193,8 +216,35 @@ export default {
   data() {
     return {
       rules: {
-        examiner: [],
-        date: [],
+        examiner: [(v) => !!v || "Le champ docteur est requis"],
+        date: [(v) => !!v || "Le champ date de consultation est requis"],
+        time: [(v) => !!v || "Le champ heure de consultation est requis"],
+        car: [(v) => !!v || "Le champ véhicule responsable est requis"],
+        name: [(v) => !!v || "Le champ nom du conducteur est requis"],
+        contact: [(v) => !!v || "Le champ contact est requis"],
+        address: [(v) => !!v || "Le champ adresse est requis"],
+        cin: [(v) => !!v || "Le champ cin est requis"],
+        victim: [(v) => !!v || "Le champ victime est requis"],
+        security: [(v) => !!v || "Le champ sécurité est requis"],
+        others: [(v) => !!v || "Le champ autres est requis"],
+        history: [(v) => !!v || "Le champ histoire est requis"],
+        examination: [(v) => !!v || "Le champ examen est requis"],
+      },
+      newConsultation: {
+        consulter_id_medecin: "",
+        consulter_date_consul: "",
+        consulter_heure: "",
+        conducteur_vehicule: "",
+        conducteur_nom: "",
+        conducteur_contact: "",
+        conducteur_adresse: "",
+        conduteur_cin: "",
+        cause_victime: "",
+        cause_vehicule: "",
+        cause_securite: "",
+        cause_autre: "",
+        consulter_histoire: "",
+        consulter_examen: "",
       },
     };
   },

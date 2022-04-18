@@ -5,7 +5,7 @@
         <v-stepper-header>
           <template v-for="step in steps">
             <v-stepper-step
-              :editable="e1 > step.key"
+              editable
               :key="`${step.key}-step`"
               :step="step.key"
               :complete="e1 > step.key"
@@ -46,7 +46,7 @@
             <!-- Treatment form -->
             <v-stepper-content step="4">
               <v-card-text>
-                <Treatment />
+                <Treatment @onNextStep="nextStep" />
               </v-card-text>
             </v-stepper-content>
           </v-stepper-items>
@@ -76,12 +76,36 @@ export default {
         { key: 3, title: "Consultation" },
         { key: 4, title: "Traitement" },
       ],
+      form: {},
     };
   },
   components: { Patient, Assistant, Consultation, Treatment },
   methods: {
-    nextStep(n) {
-      this.e1 = n;
+    nextStep(n, data) {
+      Object.entries(data).forEach(([key, value]) => (this.form[key] = value));
+
+      if (n) {
+        this.e1 = n;
+      } else {
+        this.submit();
+      }
+    },
+    submit() {
+      const formData = new FormData();
+      Object.entries(this.form).forEach(([key, value]) =>
+        formData.append(key, value)
+      );
+
+      axios
+        .post("/api/...", formData)
+        .then((result) => {
+          console.log(result);
+          this.e1 = 1;
+          this.dialog = false;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
