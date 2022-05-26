@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExaminersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,8 @@ use App\Http\Controllers\AuthController;
 }); */
 
 Route::post('/auth', [AuthController::class, 'signin']);
+
+Route::prefix('/examiners')->group(function () {
+	Route::get('', [ExaminersController::class, 'list']);
+	Route::post('', [ExaminersController::class, 'store']);
+});
