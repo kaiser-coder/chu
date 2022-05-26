@@ -13,8 +13,13 @@ class ExaminersController extends Controller
 			'examinateur' => $request->name
 		];
 
-		$stored = Examiner::firstOrCreate($new_examiner);
-		return response()->json($stored, 200);
+		$found = Examiner::where($new_examiner)->first();
+		if($found) {
+			return response()->json(null, 409);
+		} else {
+			$new_examiner = Examiner::create($new_examiner);
+			return response()->json($new_examiner, 200);
+		}
 	}
 
 	public function list()

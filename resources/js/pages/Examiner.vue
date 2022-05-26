@@ -30,7 +30,7 @@
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable />
+        <DataTable :headers="table.headers" :items="table.examiners" />
       </v-col>
     </v-row>
   </v-container>
@@ -51,7 +51,23 @@ export default {
         color: "",
         type: "",
       },
-      examiners: [],
+      table: {
+        headers: [
+          {
+            text: "ID",
+            align: "start",
+            sortable: true,
+            value: "id",
+          },
+          {
+            text: "Nom de l'examinateur",
+            align: "start",
+            sortable: true,
+            value: "name",
+          },
+        ],
+        examiners: [],
+      },
     };
   },
   components: { DataTable, NewExaminer },
@@ -60,8 +76,14 @@ export default {
     axios
       .get(getUrl)
       .then((response) => {
-        console.log(response.data);
-        this.examiners = response.data;
+        // console.log(response.data);
+
+        response.data.map((d) => {
+          this.table.examiners.push({
+            id: d.id_medecin,
+            name: d.examinateur,
+          });
+        });
       })
       .catch((error) => console.error(error));
   },
@@ -77,7 +99,14 @@ export default {
       axios
         .post(postUrl, formdata)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
+          const { id, examinateur } = response.data;
+
+          this.table.examiners.push({
+            id: id,
+            name: examinateur,
+          });
+
           this.alert = {
             status: true,
             message: "Ajout du nouvel examinateur réussi",
@@ -86,12 +115,22 @@ export default {
           };
         })
         .catch((error) => {
-          this.alert = {
-            status: true,
-            message: error,
-            color: "red",
-            type: "danger",
-          };
+          // console.log(error.response);
+          if (error.response.status == 409) {
+            this.alert = {
+              status: true,
+              message: "Ce médecin existe déjà",
+              color: "red",
+              type: "danger",
+            };
+          } else {
+            this.alert = {
+              status: true,
+              message: error,
+              color: "red",
+              type: "danger",
+            };
+          }
         })
         .finally(() => (this.isShown = false));
     },
