@@ -96,8 +96,9 @@ export default {
         formData.append(key, value)
       );
 
+      const postPatientUrl = "/api/patients";
       axios
-        .post("/api/...", formData)
+        .post(postPatientUrl, formData)
         .then((result) => {
           console.log(result);
           this.e1 = 1;

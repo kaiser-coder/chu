@@ -73,7 +73,7 @@ export default {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.$emit("onNextStep", 3, newAssistant);
+        this.$emit("onNextStep", 3, this.newAssistant);
       }
     },
   },

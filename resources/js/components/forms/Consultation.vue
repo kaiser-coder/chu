@@ -253,7 +253,7 @@ export default {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.$emit("onNextStep", 4);
+        this.$emit("onNextStep", 4, this.newConsultation);
       }
     },
   },
