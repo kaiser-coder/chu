@@ -10,8 +10,9 @@
               dense
               :items="['One', 'Two']"
               required
-              name="consulter_id_medecin"
+              name="id_medecin"
               :rules="rules.examiner"
+              v-model="newConsultation.id_medecin"
             ></v-select>
           </v-col>
         </v-row>
@@ -23,8 +24,9 @@
               dense
               type="date"
               required
-              name="consulter_date_consul"
+              name="date_consul"
               :rules="rules.date"
+              v-model="newConsultation.date_consul"
             ></v-text-field>
           </v-col>
           <v-col cols="6" class="px-0 pl-1">
@@ -34,8 +36,9 @@
               dense
               type="time"
               required
-              name="consulter_heure"
+              name="heure"
               :rules="rules.time"
+              v-model="newConsultation.heure"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -53,22 +56,36 @@
               label="Véhicule responsable"
               outlined
               dense
-              name="conducteur_vehicule"
+              name="vehicule"
               :items="['Voiture', 'Moto', 'Bicyclette', 'Aucun']"
               :rules="rules.car"
+              v-model="newConsultation.vehicule"
               required
             ></v-select>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" class="pa-0">
+          <v-col cols="6" class="pa-0">
             <v-text-field
               label="Nom du conducteur"
               outlined
               dense
               type="text"
-              name="conducteur_nom"
+              name="nom"
               :rules="rules.name"
+              v-model="newConsultation.nom"
+              required
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6" class="pa-0">
+            <v-text-field
+              label="Prénom du conducteur"
+              outlined
+              dense
+              type="text"
+              name="prenom"
+              :rules="rules.firstname"
+              v-model="newConsultation.prenom"
               required
             ></v-text-field>
           </v-col>
@@ -80,8 +97,9 @@
               outlined
               dense
               type="text"
-              name="conducteur_contact"
+              name="contact"
               :rules="rules.contact"
+              v-model="newConsultation.contact"
               required
             ></v-text-field>
           </v-col>
@@ -93,8 +111,9 @@
               outlined
               dense
               type="text"
-              name="conducteur_adresse"
+              name="adresse"
               :rules="rules.address"
+              v-model="newConsultation.adresse"
               required
             ></v-text-field>
           </v-col>
@@ -106,8 +125,9 @@
               outlined
               dense
               type="text"
-              name="conduteur_cin"
+              name="cin"
               :rules="rules.cin"
+              v-model="newConsultation.cin"
               required
             ></v-text-field>
           </v-col>
@@ -127,8 +147,9 @@
               outlined
               dense
               :items="['Aucun', 'Passager', 'Piéton']"
-              name="cause_victime"
+              name="victime"
               :rules="rules.victim"
+              v-model="newConsultation.victime"
               required
             ></v-select>
           </v-col>
@@ -140,8 +161,9 @@
               outlined
               dense
               :items="['Aucun', 'Voiture', 'Moto', 'Bicyclette']"
-              name="cause_vehicule"
+              name="vehicule"
               :rules="rules.car"
+              v-model="newConsultation.vehicule"
               required
             ></v-select>
           </v-col>
@@ -154,7 +176,8 @@
               dense
               :items="['Aucun', 'Ceinturé', 'Casqué']"
               :rules="rules.security"
-              name="cause_securite"
+              v-model="newConsultation.securite"
+              name="securite"
               required
             ></v-select>
           </v-col>
@@ -167,7 +190,8 @@
               dense
               :items="['Aucun', 'Alcool', 'Médicaments', 'Stupéfiants']"
               :rules="rules.others"
-              name="cause_autre"
+              v-model="newConsultation.autre"
+              name="autre"
               required
             ></v-select>
           </v-col>
@@ -179,8 +203,9 @@
               outlined
               dense
               type="text"
-              name="consulter_histoire"
+              name="histoire"
               :rules="rules.history"
+              v-model="newConsultation.histoire"
               required
             ></v-textarea>
           </v-col>
@@ -192,8 +217,9 @@
               outlined
               dense
               type="text"
-              name="consulter_examen"
+              name="examen"
               :rules="rules.examination"
+              v-model="newConsultation.examen"
               required
             ></v-textarea>
           </v-col>
@@ -221,6 +247,7 @@ export default {
         time: [(v) => !!v || "Le champ heure de consultation est requis"],
         car: [(v) => !!v || "Le champ véhicule responsable est requis"],
         name: [(v) => !!v || "Le champ nom du conducteur est requis"],
+        firstname: [(v) => !!v || "Le champ prénom du conducteur est requis"],
         contact: [(v) => !!v || "Le champ contact est requis"],
         address: [(v) => !!v || "Le champ adresse est requis"],
         cin: [(v) => !!v || "Le champ cin est requis"],
@@ -231,20 +258,21 @@ export default {
         examination: [(v) => !!v || "Le champ examen est requis"],
       },
       newConsultation: {
-        consulter_id_medecin: "",
-        consulter_date_consul: "",
-        consulter_heure: "",
-        conducteur_vehicule: "",
-        conducteur_nom: "",
-        conducteur_contact: "",
-        conducteur_adresse: "",
-        conduteur_cin: "",
-        cause_victime: "",
-        cause_vehicule: "",
-        cause_securite: "",
-        cause_autre: "",
-        consulter_histoire: "",
-        consulter_examen: "",
+        id_medecin: "",
+        date_consul: "",
+        heure: "",
+        vehicule: "",
+        nom: "",
+        prenom: "",
+        contact: "",
+        adresse: "",
+        cin: "",
+        victime: "",
+        vehicule: "",
+        securite: "",
+        autre: "",
+        histoire: "",
+        examen: "",
       },
     };
   },
@@ -253,7 +281,7 @@ export default {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.$emit("onNextStep", 4, this.newConsultation);
+        this.$emit("onNextStep", 4, { newConsultation: this.newConsultation });
       }
     },
   },

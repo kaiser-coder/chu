@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-row>
       <v-col lg="12">
-        <v-btn color="warning">Nouveau</v-btn>
-        <NewPatient />
+        <v-btn color="warning" @click="isShown = true">Nouveau</v-btn>
+        <NewPatient :isShown="isShown" @onCloseDialog="isShown = false" />
       </v-col>
     </v-row>
     <v-row>
@@ -20,5 +20,10 @@ import NewPatient from "../components/dialogs/NewPatient.vue";
 
 export default {
   components: { DataTable, NewPatient },
+  data() {
+    return {
+      isShown: false,
+    };
+  },
 };
 </script>

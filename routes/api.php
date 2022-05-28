@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExaminersController;
+use App\Http\Controllers\PatientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,8 @@ Route::post('/auth', [AuthController::class, 'signin']);
 Route::prefix('/examiners')->group(function () {
 	Route::get('', [ExaminersController::class, 'list']);
 	Route::post('', [ExaminersController::class, 'store']);
+});
+
+Route::prefix('/patients')->group(function () {
+	Route::post('', [PatientsController::class, 'store']);
 });

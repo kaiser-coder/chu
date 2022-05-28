@@ -7,7 +7,7 @@
             label="Type"
             outlined
             dense
-            name="traitement_type"
+            name="type"
             :items="[
               'Aucun',
               'ECG',
@@ -29,6 +29,7 @@
             ]"
             required
             :rules="rules.type"
+            v-model="newTreatment.type"
           ></v-select>
         </v-col>
       </v-row>
@@ -38,19 +39,20 @@
             label="Autres examens paracliniques supplémentaires et résultats"
             outlined
             dense
-            name="traitement_autre"
+            name="autre"
             type="text"
             required
             :rules="rules.treatment"
+            v-model="newTreatment.autre"
           ></v-textarea>
         </v-col>
       </v-row>
       <v-row class="mb-2">
         <v-col cols="6" class="pa-0">
-          <v-btn color="primary" class="mr-1" @click="handleClick">
+          <v-btn color="primary" class="mr-1" @click="handleSubmit">
             Soumettre
           </v-btn>
-          <v-btn text @click="dialog = false"> Abandonner </v-btn>
+          <v-btn text @click="handleReset"> Abandonner </v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -66,19 +68,22 @@ export default {
         treatment: [(v) => !!v || "Le champ autres examen est requis"],
       },
       newTreatment: {
-        traitement_type: "",
-        traitement_autre: "",
+        type: "",
+        autre: "",
       },
     };
   },
   methods: {
-    handleClick() {
+    handleSubmit() {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
         console.log("Final form submit");
-        this.$emit("onNextStep", null, newTreatment);
+        this.$emit("onNextStep", null, { newTreatment: this.newTreatment });
       }
+    },
+    handleReset() {
+      this.$emit("onResetForm");
     },
   },
 };

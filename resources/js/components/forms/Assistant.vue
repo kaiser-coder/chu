@@ -9,8 +9,9 @@
             dense
             type="text"
             required
-            name="accompagnant_nom"
+            name="nom"
             :rules="rules.fullname"
+            v-model="newAssistant.nom"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -22,7 +23,8 @@
             dense
             type="text"
             required
-            name="accompagnant_adresse"
+            name="adresse"
+            v-model="newAssistant.adresse"
             :rules="rules.address"
           ></v-text-field>
         </v-col>
@@ -35,7 +37,8 @@
             dense
             type="text"
             required
-            name="accompagnant_contact"
+            name="contact"
+            v-model="newAssistant.contact"
             :rules="rules.contact"
           ></v-text-field>
         </v-col>
@@ -62,9 +65,9 @@ export default {
         contact: [(v) => !!v || "Le contact est requis"],
       },
       newAssistant: {
-        accompagnant_nom: "",
-        accompagnant_adresse: "",
-        accompagnant_contact: "",
+        nom: "",
+        adresse: "",
+        contact: "",
       },
     };
   },
@@ -73,7 +76,7 @@ export default {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.$emit("onNextStep", 3, this.newAssistant);
+        this.$emit("onNextStep", 3, { newAssistant: this.newAssistant });
       }
     },
   },

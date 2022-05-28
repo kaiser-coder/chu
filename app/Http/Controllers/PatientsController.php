@@ -3,62 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\Cause;
+use App\Models\Driver;
+use App\Models\Assistant;
 use Illuminate\Http\Request;
 
 class PatientsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request)
+	{
+		$new_patient = Patient::firstOrCreate($request->only(['newPatient']));
+		$new_patient->assistant()->firstOrCreate($request->only(['newAssistant']));
+		$new_patient->treatment()->firstOrCreate($request->only(['newAssistant']));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Patient $patient)
-    {
-        //
-    }
+		$new_cause = $new_patient->cause()->firstOrCreate($request->only([
+			'newConsultation.victime',
+			'newConsultation.vehicule',
+			'newConsultation.securite',
+			'newConsultation.autre'
+		]));
+		$new_cause->driver()->firstOrCreate($request->only([
+			'newConsultation.nom',
+			'newConsultation.prenom',
+			'newConsultation.contact',
+			'newConsultation.adresse',
+			'newConsultation.cin',
+			'newConsultation.vehicule',
+		]));
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Patient  $patient
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Patient $patient)
-    {
-        //
-    }
+		return response()->json($new_patient, 200);
+	}
 }

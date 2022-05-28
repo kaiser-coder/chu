@@ -9,7 +9,7 @@
             dense
             type="text"
             required
-            name="patient_id_patient"
+            name="id_patient"
             :rules="rules.number"
             v-model="newPatient.id_patient"
           ></v-text-field
@@ -23,7 +23,7 @@
             dense
             :items="['Homme', 'Femme']"
             required
-            name="patient_sexe"
+            name="sexe"
             :rules="rules.gender"
             v-model="newPatient.sexe"
           ></v-select
@@ -37,7 +37,7 @@
             dense
             type="text"
             required
-            name="patient_nom_patient"
+            name="nom_patient"
             :rules="rules.firstname"
             v-model="newPatient.nom_patient"
           ></v-text-field
@@ -50,7 +50,7 @@
             outlined
             dense
             type="text"
-            name="patient_prenom"
+            name="prenom"
             :rules="rules.lastname"
             v-model="newPatient.prenom"
           ></v-text-field
@@ -64,7 +64,7 @@
             dense
             type="date"
             required
-            name="patient_date_naiss"
+            name="date_naiss"
             :rules="rules.birthdate"
             v-model="newPatient.date_naiss"
           ></v-text-field
@@ -76,7 +76,7 @@
             dense
             type="number"
             required
-            name="patient_age"
+            name="age"
             :rules="rules.age"
             v-model="newPatient.age"
           ></v-text-field
@@ -90,7 +90,7 @@
             dense
             type="text"
             required
-            name="patient_adresse"
+            name="adresse"
             :rules="rules.adress"
             v-model="newPatient.adresse"
           ></v-text-field>
@@ -104,7 +104,7 @@
             dense
             type="text"
             required
-            name="patient_profession"
+            name="profession"
             :rules="rules.job"
             v-model="newPatient.profession"
           ></v-text-field>
@@ -118,7 +118,7 @@
             dense
             type="text"
             required
-            name="patient_remarque"
+            name="remarque"
             :rules="rules.notice"
             v-model="newPatient.remarque"
           ></v-textarea>
@@ -152,15 +152,15 @@ export default {
         // notice: [(v) => !!v || "Le champ remarque est requis"],
       },
       newPatient: {
-        patient_id_patient: "",
-        patient_sexe: "",
-        patient_nom_patient: "",
-        patient_prenom: "",
-        patient_date_naiss: "",
-        patient_age: "",
-        patient_adresse: "",
-        patient_profession: "",
-        patient_remarque: "",
+        id_patient: "",
+        sexe: "",
+        nom_patient: "",
+        prenom: "",
+        date_naiss: "",
+        age: "",
+        adresse: "",
+        profession: "",
+        remarque: "",
       },
     };
   },
@@ -169,7 +169,7 @@ export default {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.$emit("onNextStep", 2, this.newPatient);
+        this.$emit("onNextStep", 2, { newPatient: this.newPatient });
       }
     },
   },

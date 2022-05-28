@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="750px">
+    <v-dialog v-model="isShown" persistent max-width="750px">
       <v-stepper v-model="e1">
         <v-stepper-header>
           <template v-for="step in steps">
@@ -46,7 +46,7 @@
             <!-- Treatment form -->
             <v-stepper-content step="4">
               <v-card-text>
-                <Treatment @onNextStep="nextStep" />
+                <Treatment @onNextStep="nextStep" @onResetForm="resetForm" />
               </v-card-text>
             </v-stepper-content>
           </v-stepper-items>
@@ -62,10 +62,11 @@ import Assistant from "../forms/Assistant.vue";
 import Consultation from "../forms/Consultation.vue";
 import Treatment from "../forms/Treatment.vue";
 
+import axios from "axios";
+
 export default {
   data() {
     return {
-      dialog: true,
       e1: 1,
       steps: [
         {
@@ -79,26 +80,25 @@ export default {
       form: {},
     };
   },
+  props: {
+    isShown: Boolean,
+  },
   components: { Patient, Assistant, Consultation, Treatment },
   methods: {
     nextStep(n, data) {
       Object.entries(data).forEach(([key, value]) => (this.form[key] = value));
+      this.submit();
 
-      if (n) {
+      /* if (n) {
         this.e1 = n;
       } else {
         this.submit();
-      }
+      } */
     },
     submit() {
-      const formData = new FormData();
-      Object.entries(this.form).forEach(([key, value]) =>
-        formData.append(key, value)
-      );
-
       const postPatientUrl = "/api/patients";
       axios
-        .post(postPatientUrl, formData)
+        .post(postPatientUrl, this.form)
         .then((result) => {
           console.log(result);
           this.e1 = 1;
@@ -107,6 +107,10 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    resetForm() {
+      // this.form.reset();
+      this.$emit("onCloseDialog");
     },
   },
 };
