@@ -1,5 +1,8 @@
 <template>
   <v-app-bar color="primary" dark app>
+    <v-app-bar-nav-icon
+      @click.stop="$emit('onToggleNavigationBar')"
+    ></v-app-bar-nav-icon>
     <v-toolbar-title>{{ title }}</v-toolbar-title>
 
     <v-spacer></v-spacer>

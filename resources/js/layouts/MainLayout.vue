@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Sidebar :items="items" />
+    <Sidebar :items="items" :drawer="drawer" />
 
-    <Appbar :title="title" />
+    <Appbar :title="title" @onToggleNavigationBar="drawer = !drawer" />
     <v-main>
       <v-container>
         <router-view></router-view>
@@ -24,6 +24,7 @@ export default {
         { title: "Examinateurs", path: "examiners" },
       ],
       title: "Tableau de bord",
+      drawer: true,
     };
   },
   components: { Sidebar, Appbar },

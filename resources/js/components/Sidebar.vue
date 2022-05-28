@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer color="primary" dense dark app>
+  <v-navigation-drawer color="primary" dense dark app v-model="drawer">
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6"> Application </v-list-item-title>
@@ -25,7 +25,10 @@
 
 <script>
 export default {
-  props: ["items"],
+  props: {
+    items: Array,
+    drawer: Boolean,
+  },
 };
 </script>
 
