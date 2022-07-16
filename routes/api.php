@@ -31,4 +31,5 @@ Route::prefix('/examiners')->group(function () {
 
 Route::prefix('/patients')->group(function () {
 	Route::post('', [PatientsController::class, 'store']);
+	Route::get('', [PatientsController::class, 'list']);
 });

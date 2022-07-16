@@ -71,7 +71,7 @@ export default {
     };
   },
   components: { DataTable, NewExaminer },
-  mounted() {
+  beforeMount() {
     let getUrl = "/api/examiners";
     axios
       .get(getUrl)

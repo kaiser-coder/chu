@@ -89,14 +89,14 @@ export default {
       Object.entries(data).forEach(([key, value]) => (this.form[key] = value));
       this.submit();
 
-      /* if (n) {
-        this.e1 = n;
-      } else {
-        this.submit();
-      } */
+      if (n) this.e1 = n;
+      else this.submit();
     },
     submit() {
       const postPatientUrl = "/api/patients";
+
+      console.log(this.form);
+
       axios
         .post(postPatientUrl, this.form)
         .then((result) => {
@@ -109,7 +109,8 @@ export default {
         });
     },
     resetForm() {
-      // this.form.reset();
+      console.log("resetForm");
+      this.form.reset();
       this.$emit("onCloseDialog");
     },
   },

@@ -65,9 +65,9 @@ export default {
         contact: [(v) => !!v || "Le contact est requis"],
       },
       newAssistant: {
-        nom: "",
-        adresse: "",
-        contact: "",
+        nom: null,
+        adresse: null,
+        contact: null,
       },
     };
   },

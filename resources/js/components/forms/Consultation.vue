@@ -43,96 +43,113 @@
           </v-col>
         </v-row>
       </section>
+
       <v-row>
-        <v-col cols="12" class="pa-0 mb-10">
-          <h3>Responsable</h3>
-          <v-divider></v-divider>
+        <v-col cols="12" class="px-0">
+          <v-select
+            label="Type d'accident"
+            outlined
+            dense
+            name="vehicule"
+            :items="cases"
+            v-model="newConsultation.type"
+            required
+          ></v-select>
         </v-col>
       </v-row>
-      <section>
+
+      <div v-show="newConsultation.type === 'A.T'">
         <v-row>
-          <v-col cols="12" class="pa-0">
-            <v-select
-              label="Véhicule responsable"
-              outlined
-              dense
-              name="vehicule"
-              :items="['Voiture', 'Moto', 'Bicyclette', 'Aucun']"
-              :rules="rules.car"
-              v-model="newConsultation.vehicule"
-              required
-            ></v-select>
+          <v-col cols="12" class="pa-0 mb-10">
+            <h3>Responsable</h3>
+            <v-divider></v-divider>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="6" class="pa-0">
-            <v-text-field
-              label="Nom du conducteur"
-              outlined
-              dense
-              type="text"
-              name="nom"
-              :rules="rules.name"
-              v-model="newConsultation.nom"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="6" class="pa-0">
-            <v-text-field
-              label="Prénom du conducteur"
-              outlined
-              dense
-              type="text"
-              name="prenom"
-              :rules="rules.firstname"
-              v-model="newConsultation.prenom"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="pa-0">
-            <v-text-field
-              label="Contact du responsable"
-              outlined
-              dense
-              type="text"
-              name="contact"
-              :rules="rules.contact"
-              v-model="newConsultation.contact"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="pa-0">
-            <v-text-field
-              label="Adresse"
-              outlined
-              dense
-              type="text"
-              name="adresse"
-              :rules="rules.address"
-              v-model="newConsultation.adresse"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col col="12" class="pa-0">
-            <v-text-field
-              label="N° du CIN"
-              outlined
-              dense
-              type="text"
-              name="cin"
-              :rules="rules.cin"
-              v-model="newConsultation.cin"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </section>
+        <section>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-select
+                label="Véhicule responsable"
+                outlined
+                dense
+                name="vehicule"
+                :items="['Voiture', 'Moto', 'Bicyclette', 'Aucun']"
+                :rules="rules.car"
+                v-model="newConsultation.vehicule"
+                required
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="6" class="px-0 pr-1">
+              <v-text-field
+                label="Nom du conducteur"
+                outlined
+                dense
+                type="text"
+                name="nom"
+                :rules="rules.name"
+                v-model="newConsultation.nom"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6" class="px-0 pl-1">
+              <v-text-field
+                label="Prénom du conducteur"
+                outlined
+                dense
+                type="text"
+                name="prenom"
+                :rules="rules.firstname"
+                v-model="newConsultation.prenom"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-text-field
+                label="Contact du responsable"
+                outlined
+                dense
+                type="text"
+                name="contact"
+                :rules="rules.contact"
+                v-model="newConsultation.contact"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-text-field
+                label="Adresse"
+                outlined
+                dense
+                type="text"
+                name="adresse"
+                :rules="rules.address"
+                v-model="newConsultation.adresse"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col col="12" class="pa-0">
+              <v-text-field
+                label="N° du CIN"
+                outlined
+                dense
+                type="text"
+                name="cin"
+                :rules="rules.cin"
+                v-model="newConsultation.cin"
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </section>
+      </div>
       <v-row>
         <v-col cols="12" class="pa-0 mt-3 mb-10">
           <h3>Victime</h3>
@@ -154,7 +171,7 @@
             ></v-select>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-show="newConsultation.type === 'A.T'">
           <v-col cols="12" class="pa-0">
             <v-select
               label="Véhicule de la victime"
@@ -168,7 +185,7 @@
             ></v-select>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-show="newConsultation.type === 'A.T'">
           <v-col cols="12" class="pa-0">
             <v-select
               label="Sécurité"
@@ -218,7 +235,6 @@
               dense
               type="text"
               name="examen"
-              :rules="rules.examination"
               v-model="newConsultation.examen"
               required
             ></v-textarea>
@@ -258,22 +274,34 @@ export default {
         examination: [(v) => !!v || "Le champ examen est requis"],
       },
       newConsultation: {
-        id_medecin: "",
-        date_consul: "",
-        heure: "",
-        vehicule: "",
-        nom: "",
-        prenom: "",
-        contact: "",
-        adresse: "",
-        cin: "",
-        victime: "",
-        vehicule: "",
-        securite: "",
-        autre: "",
-        histoire: "",
-        examen: "",
+        id_medecin: null,
+        date_consul: null,
+        heure: null,
+        type: null,
+        vehicule: null,
+        nom: null,
+        prenom: null,
+        contact: null,
+        adresse: null,
+        cin: null,
+        victime: null,
+        vehicule: null,
+        securite: null,
+        autre: null,
+        histoire: null,
+        examen: null,
       },
+      cases: [
+        "A.T",
+        "A.Sco",
+        "A.D",
+        "A.Spo",
+        "A.R.C",
+        "Eva.San",
+        "Cas.Méd",
+        "A.V.P",
+        "A.C",
+      ],
     };
   },
   methods: {

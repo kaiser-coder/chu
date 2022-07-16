@@ -3,20 +3,6 @@
     <v-form lazy-validation ref="form">
       <v-row>
         <v-col lg="12" class="pa-0"
-          ><v-text-field
-            label="Identifiant"
-            outlined
-            dense
-            type="text"
-            required
-            name="id_patient"
-            :rules="rules.number"
-            v-model="newPatient.id_patient"
-          ></v-text-field
-        ></v-col>
-      </v-row>
-      <v-row>
-        <v-col lg="12" class="pa-0"
           ><v-select
             label="Genre"
             outlined
@@ -141,7 +127,6 @@ export default {
   data() {
     return {
       rules: {
-        number: [(v) => !!v || "Le numéro est requis"],
         gender: [(v) => !!v || "Le champ civilité est requis"],
         firstname: [(v) => !!v || "Le nom est requis"],
         lastname: [(v) => !!v || "Le prénom est requis"],
@@ -152,15 +137,14 @@ export default {
         // notice: [(v) => !!v || "Le champ remarque est requis"],
       },
       newPatient: {
-        id_patient: "",
-        sexe: "",
-        nom_patient: "",
-        prenom: "",
-        date_naiss: "",
-        age: "",
-        adresse: "",
-        profession: "",
-        remarque: "",
+        sexe: null,
+        nom_patient: null,
+        prenom: null,
+        date_naiss: null,
+        age: null,
+        adresse: null,
+        profession: null,
+        remarque: null,
       },
     };
   },

@@ -52,7 +52,7 @@
           <v-btn color="primary" class="mr-1" @click="handleSubmit">
             Soumettre
           </v-btn>
-          <v-btn text @click="handleReset"> Abandonner </v-btn>
+          <v-btn @click="handleReset"> Abandonner </v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -64,12 +64,12 @@ export default {
   data() {
     return {
       rules: {
-        type: [(v) => !!v || "Le champ type est requis"],
-        treatment: [(v) => !!v || "Le champ autres examen est requis"],
+        // type: [(v) => !!v || "Le champ type est requis"],
+        // treatment: [(v) => !!v || "Le champ autres examen est requis"],
       },
       newTreatment: {
-        type: "",
-        autre: "",
+        type: null,
+        autre: null,
       },
     };
   },
@@ -83,6 +83,7 @@ export default {
       }
     },
     handleReset() {
+      console.log("handleReset");
       this.$emit("onResetForm");
     },
   },

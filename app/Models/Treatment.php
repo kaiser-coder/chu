@@ -9,6 +9,10 @@ class Treatment extends Model
 {
 	use HasFactory;
 
+	protected $table = 'traitement';
+	protected $guarded = [];
+	public $timestamps = false;
+
 	public function patient()
 	{
 		return $this->belongsTo(Patient::class);
