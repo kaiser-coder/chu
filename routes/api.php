@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExaminersController;
+use App\Http\Controllers\PatientsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+	return $request->user();
+}); */
+
+Route::post('/auth', [AuthController::class, 'signin']);
+
+Route::prefix('/examiners')->group(function () {
+	Route::get('', [ExaminersController::class, 'list']);
+	Route::post('', [ExaminersController::class, 'store']);
+});
+
+Route::prefix('/patients')->group(function () {
+	Route::post('', [PatientsController::class, 'store']);
+	Route::get('', [PatientsController::class, 'list']);
 });
