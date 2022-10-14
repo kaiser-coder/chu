@@ -1,0 +1,4 @@
+Boutons editer - supprimer (avec confirmations) - voir les détails
+Formulaires patients quand AC -> affichage infos à saisir responsable
+Acceuil Statistiques
+Login admin
