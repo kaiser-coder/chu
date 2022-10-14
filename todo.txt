@@ -1,5 +1,5 @@
 Boutons editer - supprimer (avec confirmations) - voir les détails pages: patients - examinateurs
 Formulaires patients quand AC -> affichage infos à saisir responsable
 Acceuil Statistiques
-Login admin
+Login admin - logout
 patients retirer id_accompagnant, id_cause
