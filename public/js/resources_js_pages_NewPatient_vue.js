@@ -2620,8 +2620,8 @@ var render = function render() {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: _vm.newConsultation.type === "A.T",
-      expression: "newConsultation.type === 'A.T'"
+      value: _vm.newConsultation.type === "A.C",
+      expression: "newConsultation.type === 'A.C'"
     }]
   }, [_c("v-row", [_c("v-col", {
     staticClass: "pa-0 mb-10",
@@ -2925,7 +2925,7 @@ var render = function render() {
     on: {
       click: _vm.handleClick
     }
-  }, [_vm._v("\n            Continuer\n          ")]), _vm._v(" "), _c("v-btn", {
+  }, [_vm._v(" Continuer ")]), _vm._v(" "), _c("v-btn", {
     attrs: {
       text: ""
     },

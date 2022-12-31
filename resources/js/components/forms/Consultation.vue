@@ -58,7 +58,7 @@
         </v-col>
       </v-row>
 
-      <div v-show="newConsultation.type === 'A.T'">
+      <div v-show="newConsultation.type === 'A.C'">
         <v-row>
           <v-col cols="12" class="pa-0 mb-10">
             <h3>Responsable</h3>
@@ -242,9 +242,7 @@
         </v-row>
         <v-row class="mb-2">
           <v-col cols="6" class="pa-0">
-            <v-btn color="primary" class="mr-1" @click="handleClick">
-              Continuer
-            </v-btn>
+            <v-btn color="primary" class="mr-1" @click="handleClick"> Continuer </v-btn>
             <v-btn text @click="dialog = false"> Abandonner </v-btn>
           </v-col>
         </v-row>
