@@ -31,6 +31,11 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     items: Array,
     drawer: Boolean
+  },
+  data: function data() {
+    return {
+      navigationDrawer: this.drawer
+    };
   }
 });
 
@@ -64,7 +69,7 @@ __webpack_require__.r(__webpack_exports__);
         path: "/app/examiners"
       }],
       title: "Tableau de bord",
-      drawer: false
+      drawer: true
     };
   },
   components: {
@@ -137,11 +142,11 @@ var render = function render() {
       app: ""
     },
     model: {
-      value: _vm.drawer,
+      value: _vm.navigationDrawer,
       callback: function callback($$v) {
-        _vm.drawer = $$v;
+        _vm.navigationDrawer = $$v;
       },
-      expression: "drawer"
+      expression: "navigationDrawer"
     }
   }, [_c("v-list-item", [_c("v-list-item-content", [_c("v-list-item-title", {
     staticClass: "text-h6"
@@ -189,17 +194,14 @@ var render = function render() {
     attrs: {
       items: _vm.items,
       drawer: _vm.drawer
-    },
-    on: {
-      onChangePageTitle: _vm.setPageTitle
     }
   }), _vm._v(" "), _c("Appbar", {
     attrs: {
       title: _vm.title
     },
     on: {
-      onToggleNavigationBar: function onToggleNavigationBar($event) {
-        _vm.drawer = !_vm.drawer;
+      onToggleNavigationBar: function onToggleNavigationBar() {
+        return _vm.drawer = !_vm.drawer;
       }
     }
   }), _vm._v(" "), _c("v-main", [_c("v-container", [_c("router-view")], 1)], 1)], 1);
