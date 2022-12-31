@@ -12,7 +12,7 @@ import VueRouter from 'vue-router';
 import VueSession from "vue-session";
 
 import { routes } from './routes';
-import App from './App';
+import App from './App.vue';
 
 /**
  * The following block of code may be used to automatically register your
@@ -35,11 +35,11 @@ Vue.use(VueRouter);
 Vue.use(VueSession);
 
 const app = new Vue({
-    el: '#app',
-    router: new VueRouter({
-        routes,
-        mode: 'history',
-    }),
-    vuetify,
-    components: { App }
+	el: '#app',
+	router: new VueRouter({
+		routes,
+		mode: 'history',
+	}),
+	vuetify,
+	components: { App }
 });
