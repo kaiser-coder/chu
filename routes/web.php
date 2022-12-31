@@ -21,6 +21,10 @@ Route::get('/app/{any?}', function () {
 	return view('index');
 });
 
+Route::get('/app/{any?}/new', function () {
+	return view('index');
+});
+
 Route::get('/signin', function () {
 	return view('index');
 });

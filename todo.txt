@@ -2,4 +2,5 @@ Boutons editer - supprimer (avec confirmations) - voir les détails pages: patie
 Formulaires patients quand AC -> affichage infos à saisir responsable
 Acceuil Statistiques
 Login admin - logout
-patients retirer id_accompagnant, id_cause
+patients retirer id_accompagnant, id_cause ✔
+supprimer les valeurs par défaut
