@@ -2117,7 +2117,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           var data = result.data;
           _this.$session.start();
           _this.$session.set("app_token", data.token);
-          _this.$router.push("/dashboard");
+          _this.$router.push("/app/dashboard");
         })["catch"](function (error) {
           _this.alert.message = "Utilisateur introuvable";
           _this.alert.state = true;

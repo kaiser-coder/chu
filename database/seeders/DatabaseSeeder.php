@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		try {
-			$filename = dirname(__DIR__) . '/dumps/chu.sql';
+			$filename = dirname(__DIR__) . '/dump/chu.sql';
 			DB::unprepared(\file_get_contents($filename));
 		} catch (\Throwable $th) {
 			throw $th;

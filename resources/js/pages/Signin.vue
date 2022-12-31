@@ -22,14 +22,8 @@
             </v-col>
             <v-col class="pa-0" lg="6">
               <v-form class="pa-10" lazy-validation ref="form">
-                <v-card-title
-                  class="pl-0 mb-5 d-flex flex-column justify-center"
-                >
-                  <v-img
-                    src="../img/saina.jpg"
-                    class="mb-2"
-                    height="100%"
-                  ></v-img>
+                <v-card-title class="pl-0 mb-5 d-flex flex-column justify-center">
+                  <v-img src="../img/saina.jpg" class="mb-2" height="100%"></v-img>
                   <h5>Connectez vous à votre compte</h5>
                 </v-card-title>
                 <v-card-text>
@@ -100,8 +94,7 @@ export default {
         password: [
           (v) => !!v || "Le mot de passe est requis",
           (v) =>
-            v.length > 4 ||
-            "Le mot de passe doit comporter 04 caractères au minimum",
+            v.length > 4 || "Le mot de passe doit comporter 04 caractères au minimum",
         ],
       },
       alert: {
@@ -130,7 +123,7 @@ export default {
 
             this.$session.start();
             this.$session.set("app_token", data.token);
-            this.$router.push("/dashboard");
+            this.$router.push("/app/dashboard");
           })
           .catch((error) => {
             this.alert.message = "Utilisateur introuvable";

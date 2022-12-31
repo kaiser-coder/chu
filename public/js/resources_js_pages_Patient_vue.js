@@ -2444,6 +2444,11 @@ __webpack_require__.r(__webpack_exports__);
       isShown: false,
       items: [],
       headers: [{
+        text: "ID Patient",
+        align: "start",
+        sortable: true,
+        value: "id_patient"
+      }, {
         text: "Adresse",
         align: "start",
         sortable: true,
@@ -2458,21 +2463,6 @@ __webpack_require__.r(__webpack_exports__);
         align: "start",
         sortable: true,
         value: "date_naiss"
-      }, {
-        text: "ID Accompagnant",
-        align: "start",
-        sortable: true,
-        value: "id_accomp"
-      }, {
-        text: "ID Cause",
-        align: "start",
-        sortable: true,
-        value: "id_cause"
-      }, {
-        text: "ID Patient",
-        align: "start",
-        sortable: true,
-        value: "id_patient"
       }, {
         text: "Nom",
         align: "start",

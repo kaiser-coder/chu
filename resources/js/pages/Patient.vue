@@ -27,6 +27,12 @@ export default {
       items: [],
       headers: [
         {
+          text: "ID Patient",
+          align: "start",
+          sortable: true,
+          value: "id_patient",
+        },
+        {
           text: "Adresse",
           align: "start",
           sortable: true,
@@ -43,24 +49,6 @@ export default {
           align: "start",
           sortable: true,
           value: "date_naiss",
-        },
-        {
-          text: "ID Accompagnant",
-          align: "start",
-          sortable: true,
-          value: "id_accomp",
-        },
-        {
-          text: "ID Cause",
-          align: "start",
-          sortable: true,
-          value: "id_cause",
-        },
-        {
-          text: "ID Patient",
-          align: "start",
-          sortable: true,
-          value: "id_patient",
         },
         {
           text: "Nom",
