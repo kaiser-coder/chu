@@ -2090,20 +2090,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_DataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/DataTable.vue */ "./resources/js/components/DataTable.vue");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/dialogs/NewPatient.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    DataTable: _components_DataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    NewPatient: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/dialogs/NewPatient.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    DataTable: _components_DataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      isShown: false,
       items: [],
       headers: [{
         text: "ID Patient",
@@ -2140,14 +2136,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
         align: "start",
         sortable: true,
         value: "profession"
-      },
-      /* {
-        text: "Remarque",
-        align: "start",
-        sortable: true,
-        value: "remarque",
-      }, */
-      {
+      }, {
         text: "Genre",
         align: "start",
         sortable: true,
@@ -2158,7 +2147,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
   beforeMount: function beforeMount() {
     var _this = this;
     var getUrl = "/api/patients";
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get(getUrl).then(function (_ref) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get(getUrl).then(function (_ref) {
       var data = _ref.data;
       console.log(data);
       data.forEach(function (item) {
@@ -2247,19 +2236,10 @@ var render = function render() {
     },
     on: {
       click: function click($event) {
-        _vm.isShown = true;
+        return _vm.$router.push("/app/patients/new");
       }
     }
-  }, [_vm._v("Nouveau")]), _vm._v(" "), _c("NewPatient", {
-    attrs: {
-      isShown: _vm.isShown
-    },
-    on: {
-      onCloseDialog: function onCloseDialog($event) {
-        _vm.isShown = false;
-      }
-    }
-  })], 1)], 1), _vm._v(" "), _c("v-row", [_c("v-col", {
+  }, [_vm._v("Nouveau")])], 1)], 1), _vm._v(" "), _c("v-row", [_c("v-col", {
     attrs: {
       lg: "12"
     }

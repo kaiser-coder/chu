@@ -2,8 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col lg="12">
-        <v-btn color="warning" @click="isShown = true">Nouveau</v-btn>
-        <NewPatient :isShown="isShown" @onCloseDialog="isShown = false" />
+        <v-btn color="warning" @click="$router.push('/app/patients/new')">Nouveau</v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -16,14 +15,12 @@
 
 <script>
 import DataTable from "../components/DataTable.vue";
-import NewPatient from "../components/dialogs/NewPatient.vue";
 import axios from "axios";
 
 export default {
-  components: { DataTable, NewPatient },
+  components: { DataTable },
   data() {
     return {
-      isShown: false,
       items: [],
       headers: [
         {
@@ -68,12 +65,6 @@ export default {
           sortable: true,
           value: "profession",
         },
-        /* {
-          text: "Remarque",
-          align: "start",
-          sortable: true,
-          value: "remarque",
-        }, */
         {
           text: "Genre",
           align: "start",

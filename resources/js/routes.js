@@ -13,7 +13,8 @@ export const routes = [
 			{ path: 'dashboard', component: () => import('./pages/Dashboard.vue') },
 			{ path: 'examiners', component: () => import('./pages/Examiner.vue') },
 			{ path: 'examiners/new', component: () => import('./pages/NewExaminer.vue') },
-			{ path: 'patients', component: () => import('./pages/Patient.vue') }
+			{ path: 'patients', component: () => import('./pages/Patient.vue') },
+			{ path: 'patients/new', component: () => import('./pages/NewPatient.vue') },
 		]
 	}
 ];

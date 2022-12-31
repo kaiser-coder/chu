@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="isShown" persistent max-width="750px">
+    <v-col>
       <v-stepper v-model="e1">
         <v-stepper-header>
           <template v-for="step in steps">
@@ -13,10 +13,7 @@
               {{ step.title }}
             </v-stepper-step>
 
-            <v-divider
-              v-if="step.key !== steps.length"
-              :key="step.key"
-            ></v-divider>
+            <v-divider v-if="step.key !== steps.length" :key="step.key"></v-divider>
           </template>
         </v-stepper-header>
 
@@ -52,19 +49,20 @@
           </v-stepper-items>
         </v-card>
       </v-stepper>
-    </v-dialog>
+    </v-col>
   </v-row>
 </template>
 
 <script>
-import Patient from "../forms/Patient.vue";
-import Assistant from "../forms/Assistant.vue";
-import Consultation from "../forms/Consultation.vue";
-import Treatment from "../forms/Treatment.vue";
+import Patient from "../components/forms/Patient.vue";
+import Assistant from "../components/forms/Assistant.vue";
+import Consultation from "../components/forms/Consultation.vue";
+import Treatment from "../components/forms/Treatment.vue";
 
 import axios from "axios";
 
 export default {
+  name: "NewPatient",
   data() {
     return {
       e1: 1,
@@ -111,7 +109,6 @@ export default {
     resetForm() {
       console.log("resetForm");
       this.form.reset();
-      this.$emit("onCloseDialog");
     },
   },
 };

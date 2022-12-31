@@ -55,36 +55,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       items: [{
         title: "Tableau de bord",
-        path: "dashboard"
+        path: "/app/dashboard"
       }, {
         title: "Patients",
-        path: "patients"
+        path: "/app/patients"
       }, {
         title: "Examinateurs",
-        path: "examiners"
+        path: "/app/examiners"
       }],
       title: "Tableau de bord",
-      drawer: true
+      drawer: false
     };
   },
   components: {
     Sidebar: _components_Sidebar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Appbar: _components_Appbar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  updated: function updated() {
-    var path = this.$router.history.current.path;
-    this.setTitle(path);
-  },
-  mounted: function mounted() {
-    var path = this.$router.history.current.path;
-    this.setTitle(path);
-  },
-  methods: {
-    setTitle: function setTitle(path) {
-      this.title = this.items.filter(function (d) {
-        return d.path === path.replace("/", "");
-      })[0].title;
-    }
   }
 });
 
@@ -173,11 +158,11 @@ var render = function render() {
       }
     }, [_c("v-list-item-content", {
       staticClass: "pl-10"
-    }, [_c("router-link", {
+    }, [_c("v-list-item-title", [_c("router-link", {
       attrs: {
         to: item.path
       }
-    }, [_c("v-list-item-title", [_vm._v("\n            " + _vm._s(item.title) + "\n          ")])], 1)], 1)], 1);
+    }, [_vm._v("\n            " + _vm._s(item.title) + "\n          ")])], 1)], 1)], 1);
   }), 1)], 1);
 };
 var staticRenderFns = [];
@@ -204,6 +189,9 @@ var render = function render() {
     attrs: {
       items: _vm.items,
       drawer: _vm.drawer
+    },
+    on: {
+      onChangePageTitle: _vm.setPageTitle
     }
   }), _vm._v(" "), _c("Appbar", {
     attrs: {

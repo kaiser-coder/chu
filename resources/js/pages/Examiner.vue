@@ -16,7 +16,6 @@
 <script>
 import axios from "axios";
 import DataTable from "../components/DataTable.vue";
-import NewExaminer from "./NewExaminer.vue";
 
 export default {
   data() {
@@ -40,7 +39,7 @@ export default {
       },
     };
   },
-  components: { DataTable, NewExaminer },
+  components: { DataTable },
   beforeMount() {
     let getUrl = "/api/examiners";
     axios

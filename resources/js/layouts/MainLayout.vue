@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Sidebar :items="items" :drawer="drawer" />
+    <Sidebar :items="items" :drawer="drawer" @onChangePageTitle="setPageTitle" />
 
     <Appbar :title="title" @onToggleNavigationBar="drawer = !drawer" />
     <v-main>
@@ -19,29 +19,14 @@ export default {
   data() {
     return {
       items: [
-        { title: "Tableau de bord", path: "dashboard" },
-        { title: "Patients", path: "patients" },
-        { title: "Examinateurs", path: "examiners" },
+        { title: "Tableau de bord", path: "/app/dashboard" },
+        { title: "Patients", path: "/app/patients" },
+        { title: "Examinateurs", path: "/app/examiners" },
       ],
       title: "Tableau de bord",
-      drawer: true,
+      drawer: false,
     };
   },
   components: { Sidebar, Appbar },
-  updated() {
-    const { path } = this.$router.history.current;
-    this.setTitle(path);
-  },
-  mounted() {
-    const { path } = this.$router.history.current;
-    this.setTitle(path);
-  },
-  methods: {
-    setTitle(path) {
-      this.title = this.items.filter(
-        (d) => d.path === path.replace("/", "")
-      )[0].title;
-    },
-  },
 };
 </script>

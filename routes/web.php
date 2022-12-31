@@ -17,14 +17,6 @@ use Illuminate\Support\Facades\Route;
 return view('welcome');
 }); */
 
-Route::get('/app/{any?}', function () {
-	return view('index');
-});
-
-Route::get('/app/{any?}/new', function () {
-	return view('index');
-});
-
-Route::get('/signin', function () {
-	return view('index');
-});
+Route::view('/app/{any}', 'index');
+Route::view('/app/{any}/new', 'index');
+Route::view('/signin', 'index');

@@ -12,11 +12,11 @@
     <v-list dense nav>
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-content class="pl-10">
-          <router-link :to="item.path">
-            <v-list-item-title>
+          <v-list-item-title>
+            <router-link :to="item.path">
               {{ item.title }}
-            </v-list-item-title>
-          </router-link>
+            </router-link>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
