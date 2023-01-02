@@ -27,6 +27,7 @@ Route::post('/auth', [AuthController::class, 'signin']);
 Route::prefix('/examiners')->group(function () {
 	Route::get('', [ExaminersController::class, 'list']);
 	Route::post('/new', [ExaminersController::class, 'store']);
+	Route::post('/update/{id}', [ExaminersController::class, 'update']);
 });
 
 Route::prefix('/patients')->group(function () {

@@ -19,14 +19,14 @@ class Examiner extends Model
 	protected $fillable = ['examinateur'];
 	public $timestamps = false;
 
-	public function findUser(string $name)
+	public function findUserByName(string $name)
 	{
 		return $this->where('examinateur', $name)->first();
 	}
 
 	public function storeNew(Request $request)
 	{
-		if ($this->findUser($request->name)) {
+		if ($this->findUserByName($request->name)) {
 			return response([
 				'message' => 'Already exist'
 			], Response::HTTP_CONFLICT);
@@ -45,6 +45,23 @@ class Examiner extends Model
 	{
 		return response([
 			'examiners' => new ExaminerCollection($this->all())
+		], Response::HTTP_OK);
+	}
+
+	public function edit(Request $request, int $id)
+	{
+		$examiner = $this->where('id_medecin', $id)->update([
+			'examinateur' => $request->name
+		]);
+
+		if($examiner === 0) {
+			return response([
+				'message' => 'Resource not found'
+			], Response::HTTP_NOT_FOUND);
+		}
+
+		return response([
+			'message' => 'Updated successfully'
 		], Response::HTTP_OK);
 	}
 }

@@ -16,4 +16,9 @@ class ExaminersController extends Controller
 	{
 		return (new Examiner)->list();
 	}
+
+	public function update(Request $request, int $id)
+	{
+		return (new Examiner)->edit($request, $id);
+	}
 }
