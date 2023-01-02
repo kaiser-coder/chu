@@ -8,7 +8,7 @@
               label="Docteur"
               outlined
               dense
-              :items="['One', 'Two']"
+              :items="selectItems"
               required
               name="id_medecin"
               :rules="rules.examiner"
@@ -242,7 +242,9 @@
         </v-row>
         <v-row class="mb-2">
           <v-col cols="6" class="pa-0">
-            <v-btn color="primary" class="mr-1" @click="handleClick"> Continuer </v-btn>
+            <v-btn color="primary" class="mr-1" @click="handleClick">
+              Continuer
+            </v-btn>
             <v-btn text @click="dialog = false"> Abandonner </v-btn>
           </v-col>
         </v-row>
@@ -252,6 +254,8 @@
 </template>
 
 <script>
+import { mapState } from "pinia";
+import { useExaminerStore } from "../../stores/examiners";
 export default {
   data() {
     return {
@@ -309,6 +313,22 @@ export default {
       if (isValid) {
         this.$emit("onNextStep", 4, { newConsultation: this.newConsultation });
       }
+    },
+  },
+  computed: {
+    ...mapState(useExaminerStore, ["examiners"]),
+    selectItems() {
+      let items = [];
+
+      this.examiners.map((e) => {
+        const { id, name } = e;
+        items.push({
+          value: id,
+          text: name,
+        });
+      });
+
+      return items;
     },
   },
 };

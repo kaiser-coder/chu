@@ -13,7 +13,7 @@ export const usePatientStore = defineStore('patients', {
 			axios
 				.get(getUrl)
 				.then(({ data }) => {
-					this.patients = [...data.patients, this.patients];
+					this.patients = data.patients;
 				})
 				.catch((error) => console.error(error));
 		}

@@ -13,7 +13,7 @@ export const useExaminerStore = defineStore('examiners', {
 			axios
 				.get(getUrl)
 				.then(({ data }) => {
-					this.examiners = [...data.examiners, this.examiners];
+					this.examiners = data.examiners;
 				})
 				.catch((error) => console.error(error))
 		}

@@ -44,7 +44,9 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="handleReset"> Annuler </v-btn>
+              <v-btn color="blue darken-1" text @click="handleReset">
+                Annuler
+              </v-btn>
               <v-btn color="blue darken-1" text @click="handleSubmit">
                 Sauvegrader
               </v-btn>
@@ -58,6 +60,8 @@
 
 <script>
 import axios from "axios";
+
+import { useExaminerStore } from "../stores/examiners";
 
 export default {
   name: "NewExaminer",
@@ -78,8 +82,41 @@ export default {
     };
   },
   methods: {
+    displayAlert(statusText) {
+      switch (statusText) {
+        case "success":
+          this.alert = {
+            status: true,
+            message: "Ajout du nouvel examinateur réussi",
+            color: "green",
+            type: "success",
+          };
+          break;
+
+        case "warning":
+          this.alert = {
+            status: true,
+            message: "Ce médecin existe déjà",
+            color: "warning",
+            type: "warning",
+          };
+
+        case "error":
+          this.alert = {
+            status: true,
+            message: error,
+            color: "red",
+            type: "danger",
+          };
+          break;
+
+        default:
+          break;
+      }
+    },
+
     submitExaminer(examiner) {
-      let postUrl = "/api/examiners";
+      let postUrl = "/api/examiners/new";
       const formdata = new FormData();
 
       Object.entries(examiner).map(([key, value]) => {
@@ -88,30 +125,17 @@ export default {
 
       axios
         .post(postUrl, formdata)
-        .then((response) => {
-          this.alert = {
-            status: true,
-            message: "Ajout du nouvel examinateur réussi",
-            color: "green",
-            type: "success",
-          };
+        .then(({ data }) => {
+          const { examiners } = useExaminerStore();
+          examiners.push(data.examiner);
+          this.displayAlert("success");
         })
         .catch((error) => {
           // console.log(error.response);
           if (error.response.status == 409) {
-            this.alert = {
-              status: true,
-              message: "Ce médecin existe déjà",
-              color: "red",
-              type: "danger",
-            };
+            this.displayAlert("warning");
           } else {
-            this.alert = {
-              status: true,
-              message: error,
-              color: "red",
-              type: "danger",
-            };
+            this.displayAlert("error");
           }
         });
     },

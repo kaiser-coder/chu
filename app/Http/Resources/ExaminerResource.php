@@ -15,7 +15,7 @@ class ExaminerResource extends JsonResource
     public function toArray($request)
     {
         return [
-					'id' => $this->id_medecin,
+					'id' => $this->id,
 					'name' => $this->examinateur,
 				];
     }
