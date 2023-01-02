@@ -22,5 +22,8 @@ export const useExaminerStore = defineStore('examiners', {
 				})
 				.catch((error) => console.error(error))
 		}
+	},
+	getters: {
+		count() { return this.examiners.length }
 	}
 })

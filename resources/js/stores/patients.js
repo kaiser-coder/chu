@@ -13,10 +13,12 @@ export const usePatientStore = defineStore('patients', {
 			axios
 				.get(getUrl)
 				.then(({ data }) => {
-					// console.log(data);
 					this.patients = [...data, this.patients];
 				})
 				.catch((error) => console.error(error));
 		}
+	},
+	getters: {
+		count() { return this.patients.length }
 	}
 })
