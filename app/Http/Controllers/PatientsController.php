@@ -9,20 +9,13 @@ use App\Models\Assistant;
 use Illuminate\Http\Request;
 
 class PatientsController extends Controller
-{ 
+{
 
 	public function list() {
-		$patients = Patient::all();
-		return response()->json($patients, 200);
+		return (new Patient())->list();
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request)
+	/* public function store(Request $request)
 	{
 		$req_patient = $request->input("newPatient");
 		$req_assistant = $request->input("newAssistant");
@@ -32,10 +25,10 @@ class PatientsController extends Controller
 		$is_found = Patient::where($req_patient)->first();
 		if(!$is_found) {
 			$new_patient = Patient::create($req_patient);
-	
+
 			$new_patient->assistant()->insert($req_assistant);
 			$new_patient->treatment()->insert($req_treatment);
-			
+
 			$new_cause = $new_patient->cause()->create([
 				"victime"  => $req_consultation["victime"],
 				"vehicule" => $req_consultation["vehicule"],
@@ -50,11 +43,11 @@ class PatientsController extends Controller
 				"cin"      => $req_consultation["cin"],
 				"vehicule" => $req_consultation["vehicule"]
 			]);
-	
+
 			return response()->json($new_patient, 200);
 		}  else {
 			return response()->json(["message" => "Already exist"], 409);
 		}
 
-	}
+	} */
 }

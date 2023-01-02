@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Http\Resources\PatientCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\Response;
 
 class Patient extends Model
 {
@@ -26,5 +28,13 @@ class Patient extends Model
 	public function treatment()
 	{
 		return $this->hasOne(Treatment::class);
+	}
+
+	public function list()
+	{
+		return response(
+			['patients' => new PatientCollection($this->all())],
+				Response::HTTP_OK
+		);
 	}
 }
