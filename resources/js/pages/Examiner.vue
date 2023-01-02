@@ -9,19 +9,17 @@
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable
-          :headers="table.headers"
-          :items="examiners"
-          :loading="loading"
-        />
+        <DataTable :headers="table.headers" :items="examiners" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import axios from "axios";
 import DataTable from "../components/DataTable.vue";
+
+import { mapState } from "pinia";
+import { useExaminerStore } from "../stores/examiners";
 
 export default {
   data() {
@@ -48,29 +46,11 @@ export default {
           },
         ],
       },
-      loading: true,
-      examiners: [],
     };
   },
   components: { DataTable },
-  beforeMount() {
-    let getUrl = "/api/examiners";
-    axios
-      .get(getUrl)
-      .then((response) => {
-        // console.log(response.data);
-
-        response.data.map((d) => {
-          this.examiners.push({
-            id: d.id_medecin,
-            name: d.examinateur,
-          });
-        });
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.loading = false;
-      });
+  computed: {
+    ...mapState(useExaminerStore, ["examiners"]),
   },
 };
 </script>

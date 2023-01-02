@@ -14,6 +14,8 @@ import VueSession from "vue-session";
 import { routes } from './routes';
 import App from './App.vue';
 
+import { createPinia, PiniaVuePlugin } from 'pinia'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -33,6 +35,9 @@ import App from './App.vue';
 
 Vue.use(VueRouter);
 Vue.use(VueSession);
+Vue.use(PiniaVuePlugin);
+
+const pinia = createPinia();
 
 const app = new Vue({
 	el: '#app',
@@ -41,5 +46,6 @@ const app = new Vue({
 		mode: 'history',
 	}),
 	vuetify,
+	pinia,
 	components: { App }
 });

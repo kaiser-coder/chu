@@ -10,13 +10,7 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :search="search"
-      :loading="loading"
-      loading-text="Chargement ..."
-    >
+    <v-data-table :headers="headers" :items="items" :search="search">
       <template v-slot:top>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
@@ -56,10 +50,6 @@ export default {
   props: {
     headers: Array,
     items: Array,
-    loading: {
-      type: Boolean,
-      default: true,
-    },
   },
   methods: {
     editItem(item) {

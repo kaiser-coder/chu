@@ -15,6 +15,10 @@
 import Sidebar from "../components/Sidebar.vue";
 import Appbar from "../components/Appbar.vue";
 
+import { mapActions, mapState } from "pinia";
+import { usePatientStore } from "../stores/patients";
+import { useExaminerStore } from "../stores/examiners";
+
 export default {
   data() {
     return {
@@ -28,5 +32,15 @@ export default {
     };
   },
   components: { Sidebar, Appbar },
+  methods: {
+    ...mapActions(usePatientStore, ["fetchPatients"]),
+  },
+  computed: {
+    ...mapState(useExaminerStore, ["fetchExaminers"]),
+  },
+  beforeMount() {
+    this.fetchPatients();
+    this.fetchExaminers();
+  },
 };
 </script>

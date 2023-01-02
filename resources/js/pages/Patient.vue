@@ -9,21 +9,22 @@
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable :items="items" :headers="headers" :loading="loading" />
+        <DataTable :items="items" :headers="headers" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { mapState } from "pinia";
 import DataTable from "../components/DataTable.vue";
-import axios from "axios";
+
+import { usePatientStore } from "../stores/patients";
 
 export default {
   components: { DataTable },
   data() {
     return {
-      items: [],
       headers: [
         {
           text: "ID Patient",
@@ -80,21 +81,10 @@ export default {
           sortable: false,
         },
       ],
-      loading: true,
     };
   },
-  beforeMount() {
-    let getUrl = "/api/patients";
-    axios
-      .get(getUrl)
-      .then(({ data }) => {
-        // console.log(data);
-        this.items = [...data, this.items];
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.loading = false;
-      });
+  computed: {
+    ...mapState(usePatientStore, { items: "patients" }),
   },
 };
 </script>
