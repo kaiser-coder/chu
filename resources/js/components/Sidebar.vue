@@ -17,7 +17,12 @@
     <v-divider></v-divider>
 
     <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item.title" link>
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        link
+        @click="setActivePageName(item.title)"
+      >
         <v-list-item-content class="pl-10">
           <v-list-item-title>
             <router-link :to="item.path">
@@ -31,15 +36,18 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "pinia";
+import { useSidebarStore } from "../stores/sidebar";
+
 export default {
   props: {
     items: Array,
-    drawer: Boolean,
   },
-  data() {
-    return {
-      navigationDrawer: this.drawer,
-    };
+  computed: {
+    ...mapState(useSidebarStore, ["navigationDrawer"]),
+  },
+  methods: {
+    ...mapActions(useSidebarStore, ["setActivePageName"]),
   },
 };
 </script>

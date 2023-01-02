@@ -1,8 +1,11 @@
 <template>
   <v-app>
-    <Sidebar :items="items" :drawer="drawer" />
+    <Sidebar :items="items" />
 
-    <Appbar :title="title" @onToggleNavigationBar="() => (drawer = !drawer)" />
+    <Appbar
+      :title="activePageName"
+      @onToggleNavigationBar="setNavigationDrawer"
+    />
     <v-main>
       <v-container>
         <router-view></router-view>
@@ -18,6 +21,7 @@ import Appbar from "../components/Appbar.vue";
 import { mapActions, mapState } from "pinia";
 import { usePatientStore } from "../stores/patients";
 import { useExaminerStore } from "../stores/examiners";
+import { useSidebarStore } from "../stores/sidebar";
 
 export default {
   data() {
@@ -27,20 +31,35 @@ export default {
         { title: "Patients", path: "/app/patients" },
         { title: "Examinateurs", path: "/app/examiners" },
       ],
-      title: "Tableau de bord",
-      drawer: true,
     };
   },
   components: { Sidebar, Appbar },
+  computed: {
+    ...mapState(useSidebarStore, ["activePageName"]),
+  },
   methods: {
     ...mapActions(usePatientStore, ["fetchPatients"]),
-  },
-  computed: {
-    ...mapState(useExaminerStore, ["fetchExaminers"]),
+    ...mapActions(useExaminerStore, ["fetchExaminers"]),
+    ...mapActions(useSidebarStore, [
+      "setNavigationDrawer",
+      "setActivePageName",
+    ]),
+    definePageName() {
+      const path = this.$router.history.current.path;
+      const pageName = this.items.filter((i) => {
+        return i.path === path;
+      })[0];
+
+      this.setActivePageName(pageName.title);
+    },
+    init() {
+      this.definePageName();
+      this.fetchPatients();
+      this.fetchExaminers();
+    },
   },
   beforeMount() {
-    this.fetchPatients();
-    this.fetchExaminers();
+    this.init();
   },
 };
 </script>
