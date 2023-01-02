@@ -1,7 +1,10 @@
 Boutons editer - supprimer (avec confirmations) - voir les détails pages: patients - examinateurs
-Acceuil Statistiques ✔
+Tester le formulaire de création pour les patients et les examinateurs
+Refactor Authentification using Passport
+Formulaires d'édition
 Login admin - logout
 réparer le bouton toggle du menu
+Acceuil Statistiques ✔
 Formulaires patients quand AC -> affichage infos à saisir responsable ✔
 patients retirer id_accompagnant, id_cause ✔
 

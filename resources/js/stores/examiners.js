@@ -13,12 +13,7 @@ export const useExaminerStore = defineStore('examiners', {
 			axios
 				.get(getUrl)
 				.then(({ data }) => {
-					data.map((d) => {
-						this.examiners.push({
-							id: d.id_medecin,
-							name: d.examinateur,
-						});
-					});
+					this.examiners = [...data.examiners, this.examiners];
 				})
 				.catch((error) => console.error(error))
 		}

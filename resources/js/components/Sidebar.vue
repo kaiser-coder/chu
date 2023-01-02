@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer color="primary" dense dark app v-model="navigationDrawer">
+  <!-- FIXME - Can't open sidebar -->
+  <v-navigation-drawer
+    color="primary"
+    dense
+    dark
+    app
+    v-model="navigationDrawer"
+  >
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6"> Application </v-list-item-title>
