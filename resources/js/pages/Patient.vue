@@ -2,12 +2,14 @@
   <v-container fluid>
     <v-row>
       <v-col lg="12">
-        <v-btn color="warning" @click="$router.push('/app/patients/new')">Nouveau</v-btn>
+        <v-btn color="warning" @click="$router.push('/app/patients/new')"
+          >Nouveau</v-btn
+        >
       </v-col>
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable :items="items" :headers="headers" />
+        <DataTable :items="items" :headers="headers" :loading="loading" />
       </v-col>
     </v-row>
   </v-container>
@@ -30,22 +32,10 @@ export default {
           value: "id_patient",
         },
         {
-          text: "Adresse",
+          text: "Genre",
           align: "start",
           sortable: true,
-          value: "adresse",
-        },
-        {
-          text: "Age",
-          align: "start",
-          sortable: true,
-          value: "age",
-        },
-        {
-          text: "Date de naissance",
-          align: "start",
-          sortable: true,
-          value: "date_naiss",
+          value: "sexe",
         },
         {
           text: "Nom",
@@ -60,18 +50,37 @@ export default {
           value: "prenom",
         },
         {
+          text: "Date de naissance",
+          align: "start",
+          sortable: true,
+          value: "date_naiss",
+        },
+        {
+          text: "Age",
+          align: "start",
+          sortable: true,
+          value: "age",
+        },
+        {
+          text: "Adresse",
+          align: "start",
+          sortable: true,
+          value: "adresse",
+        },
+        {
           text: "Profession",
           align: "start",
           sortable: true,
           value: "profession",
         },
         {
-          text: "Genre",
+          text: "Actions",
           align: "start",
-          sortable: true,
-          value: "sexe",
+          value: "actions",
+          sortable: false,
         },
       ],
+      loading: true,
     };
   },
   beforeMount() {
@@ -79,10 +88,13 @@ export default {
     axios
       .get(getUrl)
       .then(({ data }) => {
-        console.log(data);
-        data.forEach((item) => this.items.push(item));
+        // console.log(data);
+        this.items = [...data, this.items];
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => {
+        this.loading = false;
+      });
   },
 };
 </script>

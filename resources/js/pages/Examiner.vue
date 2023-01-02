@@ -2,12 +2,18 @@
   <v-container fluid>
     <v-row>
       <v-col lg="12">
-        <v-btn color="warning" @click="$router.push('/app/examiners/new')">Nouveau</v-btn>
+        <v-btn color="warning" @click="$router.push('/app/examiners/new')"
+          >Nouveau</v-btn
+        >
       </v-col>
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable :headers="table.headers" :items="table.examiners" />
+        <DataTable
+          :headers="table.headers"
+          :items="examiners"
+          :loading="loading"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -34,9 +40,16 @@ export default {
             sortable: true,
             value: "name",
           },
+          {
+            text: "Actions",
+            align: "start",
+            value: "actions",
+            sortable: false,
+          },
         ],
-        examiners: [],
       },
+      loading: true,
+      examiners: [],
     };
   },
   components: { DataTable },
@@ -48,13 +61,16 @@ export default {
         // console.log(response.data);
 
         response.data.map((d) => {
-          this.table.examiners.push({
+          this.examiners.push({
             id: d.id_medecin,
             name: d.examinateur,
           });
         });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(() => {
+        this.loading = false;
+      });
   },
 };
 </script>

@@ -1,6 +1,9 @@
 Boutons editer - supprimer (avec confirmations) - voir les détails pages: patients - examinateurs
-Formulaires patients quand AC -> affichage infos à saisir responsable ✔
 Acceuil Statistiques
 Login admin - logout
+réparer le bouton toggle du menu
+Formulaires patients quand AC -> affichage infos à saisir responsable ✔
 patients retirer id_accompagnant, id_cause ✔
-supprimer les valeurs par défaut
+
+--- Avant livraison ---
+supprimer les valeurs par défaut des champs
