@@ -8,7 +8,7 @@ use App\Models\Driver;
 use App\Models\Assistant;
 use Illuminate\Http\Request;
 
-class PatientsController extends Controller
+class PatientController extends Controller
 {
 
 	public function list() {

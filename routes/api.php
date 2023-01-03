@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ExaminersController;
-use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\ExaminerController;
+use App\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +25,12 @@ use App\Http\Controllers\PatientsController;
 Route::post('/auth', [AuthController::class, 'signin']);
 
 Route::prefix('/examiners')->group(function () {
-	Route::get('', [ExaminersController::class, 'list']);
-	Route::post('/new', [ExaminersController::class, 'store']);
-	Route::post('/update/{id}', [ExaminersController::class, 'update']);
+	Route::get('', [ExaminerController::class, 'list']);
+	Route::post('/new', [ExaminerController::class, 'store']);
+	Route::post('/update/{id}', [ExaminerController::class, 'update']);
 });
 
 Route::prefix('/patients')->group(function () {
-	Route::get('', [PatientsController::class, 'list']);
-	Route::post('/new', [PatientsController::class, 'store']);
+	Route::get('', [PatientController::class, 'list']);
+	Route::post('/new', [PatientController::class, 'store']);
 });
