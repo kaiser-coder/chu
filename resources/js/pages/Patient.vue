@@ -9,15 +9,15 @@
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable :items="items" :headers="headers" />
+        <DataTable :items="items" :headers="headers" :loading="loading" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "pinia";
 import DataTable from "../components/DataTable.vue";
+import { mapActions, mapState } from "pinia";
 
 import { usePatientStore } from "../stores/patients.model";
 
@@ -81,10 +81,18 @@ export default {
           sortable: false,
         },
       ],
+      loading: false,
     };
   },
   computed: {
     ...mapState(usePatientStore, { items: "patients" }),
+  },
+  methods: {
+    ...mapActions(usePatientStore, ["fetchPatients"]),
+  },
+  mounted() {
+    this.loading = true;
+    this.fetchPatients().then(() => (this.loading = false));
   },
 };
 </script>

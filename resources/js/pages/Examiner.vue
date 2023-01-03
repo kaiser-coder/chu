@@ -9,7 +9,11 @@
     </v-row>
     <v-row>
       <v-col lg="12">
-        <DataTable :headers="table.headers" :items="examiners" />
+        <DataTable
+          :headers="table.headers"
+          :items="examiners"
+          :loading="loading"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -18,7 +22,7 @@
 <script>
 import DataTable from "../components/DataTable.vue";
 
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useExaminerStore } from "../stores/examiners.model";
 
 export default {
@@ -46,11 +50,19 @@ export default {
           },
         ],
       },
+      loading: false,
     };
   },
   components: { DataTable },
   computed: {
     ...mapState(useExaminerStore, ["examiners"]),
+  },
+  methods: {
+    ...mapActions(useExaminerStore, ["fetchExaminers"]),
+  },
+  mounted() {
+    this.loading = true;
+    this.fetchExaminers().then(() => (this.loading = false));
   },
 };
 </script>

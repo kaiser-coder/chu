@@ -4,13 +4,13 @@ import { defineStore } from "pinia";
 export const usePatientStore = defineStore('patients', {
 	state() {
 		return {
-			patients: []
+			patients: [],
 		}
 	},
 	actions: {
 		fetchPatients() {
 			let getUrl = "/api/patients";
-			axios
+			return axios
 				.get(getUrl)
 				.then(({ data }) => {
 					this.patients = data.patients;

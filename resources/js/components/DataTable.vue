@@ -14,7 +14,7 @@
       :headers="headers"
       :items="items"
       :search="search"
-      loading
+      :loading="loading"
       loading-text="Chargement ..."
     >
       <template v-slot:top>
@@ -57,6 +57,7 @@ export default {
   props: {
     headers: Array,
     items: Array,
+    loading: Boolean,
   },
   methods: {
     editItem(item) {

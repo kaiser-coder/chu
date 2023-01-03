@@ -4,13 +4,13 @@ import { defineStore } from "pinia";
 export const useExaminerStore = defineStore('examiners', {
 	state() {
 		return {
-			examiners: []
+			examiners: [],
 		}
 	},
 	actions: {
 		fetchExaminers() {
 			let getUrl = "/api/examiners";
-			axios
+			return axios
 				.get(getUrl)
 				.then(({ data }) => {
 					this.examiners = data.examiners;

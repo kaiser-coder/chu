@@ -19,8 +19,6 @@ import Sidebar from "../components/Sidebar.vue";
 import Appbar from "../components/Appbar.vue";
 
 import { mapActions, mapState } from "pinia";
-import { usePatientStore } from "../stores/patients.model";
-import { useExaminerStore } from "../stores/examiners.model";
 import { useSidebarStore } from "../stores/sidebar";
 
 export default {
@@ -38,12 +36,11 @@ export default {
     ...mapState(useSidebarStore, ["activePageName"]),
   },
   methods: {
-    ...mapActions(usePatientStore, ["fetchPatients"]),
-    ...mapActions(useExaminerStore, ["fetchExaminers"]),
     ...mapActions(useSidebarStore, [
       "setNavigationDrawer",
       "setActivePageName",
     ]),
+
     definePageName() {
       const path = this.$router.history.current.path;
       const pageName = this.items.filter((i) => {
@@ -54,8 +51,6 @@ export default {
     },
     init() {
       this.definePageName();
-      this.fetchPatients();
-      this.fetchExaminers();
     },
   },
   beforeMount() {
