@@ -61,7 +61,7 @@
 <script>
 import axios from "axios";
 
-import { useExaminerStore } from "../stores/examiners";
+import { useExaminerStore } from "../stores/examiners.model";
 
 export default {
   name: "NewExaminer",

@@ -10,7 +10,13 @@
         hide-details
       ></v-text-field>
     </v-card-title>
-    <v-data-table :headers="headers" :items="items" :search="search">
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      :search="search"
+      loading
+      loading-text="Chargement ..."
+    >
       <template v-slot:top>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>

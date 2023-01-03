@@ -19,7 +19,7 @@
 import DataTable from "../components/DataTable.vue";
 
 import { mapState } from "pinia";
-import { useExaminerStore } from "../stores/examiners";
+import { useExaminerStore } from "../stores/examiners.model";
 
 export default {
   data() {

@@ -23,8 +23,8 @@
 
 <script>
 import { mapState } from "pinia";
-import { usePatientStore } from "../stores/patients";
-import { useExaminerStore } from "../stores/examiners";
+import { usePatientStore } from "../stores/patients.model";
+import { useExaminerStore } from "../stores/examiners.model";
 
 export default {
   name: "Dashboard",

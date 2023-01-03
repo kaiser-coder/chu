@@ -19,7 +19,7 @@
 import { mapState } from "pinia";
 import DataTable from "../components/DataTable.vue";
 
-import { usePatientStore } from "../stores/patients";
+import { usePatientStore } from "../stores/patients.model";
 
 export default {
   components: { DataTable },

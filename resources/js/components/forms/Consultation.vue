@@ -255,7 +255,7 @@
 
 <script>
 import { mapState } from "pinia";
-import { useExaminerStore } from "../../stores/examiners";
+import { useExaminerStore } from "../../stores/examiners.model";
 export default {
   data() {
     return {

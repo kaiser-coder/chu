@@ -19,8 +19,8 @@ import Sidebar from "../components/Sidebar.vue";
 import Appbar from "../components/Appbar.vue";
 
 import { mapActions, mapState } from "pinia";
-import { usePatientStore } from "../stores/patients";
-import { useExaminerStore } from "../stores/examiners";
+import { usePatientStore } from "../stores/patients.model";
+import { useExaminerStore } from "../stores/examiners.model";
 import { useSidebarStore } from "../stores/sidebar";
 
 export default {
