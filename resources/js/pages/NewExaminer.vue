@@ -48,7 +48,7 @@
                 Annuler
               </v-btn>
               <v-btn color="blue darken-1" text @click="handleSubmit">
-                Sauvegrader
+                {{ submitBtnText }}
               </v-btn>
             </v-card-actions>
           </v-form>
@@ -60,7 +60,7 @@
 
 <script>
 import { useExaminerStore } from "../stores/examiners.model";
-import { mapActions } from "pinia";
+import { mapActions, mapState } from "pinia";
 
 export default {
   name: "NewExaminer",
@@ -78,10 +78,17 @@ export default {
         color: "",
         type: "warning",
       },
+      ...mapState(useExaminerStore, ["activeExaminerToEdit"]),
     };
   },
+  computed: {
+    submitBtnText() {
+      const { name } = this.$router.history.current;
+      return name === "examiner_create" ? "Créer" : "Editer";
+    },
+  },
   methods: {
-    ...mapActions(useExaminerStore, ["submitExaminer"]),
+    ...mapActions(useExaminerStore, ["submitExaminer", "editExaminer"]),
 
     displayAlert(statusText, message) {
       switch (statusText) {
@@ -116,18 +123,31 @@ export default {
       }
     },
 
+    async storeNewExaminer() {
+      const { data, status } = await this.submitExaminer(this.examiner);
+
+      if (status === 201)
+        this.displayAlert("success", "Ajout du nouvel examinateur réussi");
+      else if (status === 409)
+        this.displayAlert("warning", "Ce médecin existe déjà");
+      else this.displayAlert("error", data.message);
+    },
+
+    async updateExaminer() {
+      const reponse = await this.editExaminer(this.examiner);
+      console.log(
+        "🚀 ~ file: NewExaminer.vue:138 ~ updateExaminer ~ reponse",
+        reponse
+      );
+    },
+
     async handleSubmit(e) {
       e.preventDefault();
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        const { data, status } = await this.submitExaminer(this.examiner);
-
-        if (status === 201)
-          this.displayAlert("success", "Ajout du nouvel examinateur réussi");
-        else if (status === 409)
-          this.displayAlert("warning", "Ce médecin existe déjà");
-        else this.displayAlert("error", data.message);
+        if (this.submitBtnText === "Créer") this.storeNewExaminer();
+        else this.updateExaminer();
       }
     },
 

@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useExaminerStore } from "../stores/examiners.model";
 export default {
   data() {
     return {
@@ -57,10 +59,16 @@ export default {
     headers: Array,
     items: Array,
     loading: Boolean,
+    itemsType: "",
   },
   methods: {
+    ...mapActions(useExaminerStore, ["setActiveExaminerToEdit"]),
+
     editItem(item) {
-      console.log("🚀 ~ file: DataTable.vue:35 ~ editItem ~ item", item);
+      if (this.itemsType === "examiner") {
+        this.setActiveExaminerToEdit(item);
+        this.$router.push({ name: "examiner_edit" });
+      }
     },
     deleteItem(item) {
       this.dialogDelete = true;

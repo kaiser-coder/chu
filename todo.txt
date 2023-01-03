@@ -3,6 +3,7 @@ Tester le formulaire de création pour les patients
 Refactor Authentification using Passport
 Formulaires d'édition
 Login admin - logout
+Réparer le breadcrumb
 réparer le bouton toggle du menu ✔
 Acceuil Statistiques ✔
 Formulaires patients quand AC -> affichage infos à saisir responsable ✔

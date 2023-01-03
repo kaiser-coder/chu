@@ -42,12 +42,13 @@ export default {
     ]),
 
     definePageName() {
-      const path = this.$router.history.current.path;
+      // TODO: Try to fix page title when on main page after reload
+      /* const path = this.$router.history.current.path;
       const pageName = this.items.filter((i) => {
         return i.path === path;
       })[0];
 
-      this.setActivePageName(pageName.title);
+      this.setActivePageName(pageName.title); */
     },
     init() {
       this.definePageName();

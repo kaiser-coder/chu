@@ -13,6 +13,7 @@
           :headers="table.headers"
           :items="examiners"
           :loading="loading"
+          items-type="examiner"
         />
       </v-col>
     </v-row>
