@@ -1,5 +1,4 @@
 <template>
-  <!-- FIXME - Can't open sidebar -->
   <v-navigation-drawer
     color="primary"
     dense

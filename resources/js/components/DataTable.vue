@@ -36,7 +36,6 @@
           </v-card>
         </v-dialog>
       </template>
-      <!-- TODO: Create logic for each button -->
       <template v-slot:item.actions="{ item }">
         <v-btn small class="primary" @click="editItem(item)"> Editer </v-btn>
         <v-btn small color="error" @click="deleteItem(item)"> Supprimer </v-btn>

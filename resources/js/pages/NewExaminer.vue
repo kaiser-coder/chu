@@ -59,9 +59,8 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import { useExaminerStore } from "../stores/examiners.model";
+import { mapActions } from "pinia";
 
 export default {
   name: "NewExaminer",
@@ -82,29 +81,31 @@ export default {
     };
   },
   methods: {
-    displayAlert(statusText) {
+    ...mapActions(useExaminerStore, ["submitExaminer"]),
+
+    displayAlert(statusText, message) {
       switch (statusText) {
         case "success":
           this.alert = {
             status: true,
-            message: "Ajout du nouvel examinateur réussi",
+            message,
             color: "green",
-            type: "success",
+            type: statusText,
           };
           break;
 
         case "warning":
           this.alert = {
             status: true,
-            message: "Ce médecin existe déjà",
+            message,
             color: "warning",
-            type: "warning",
+            type: statusText,
           };
 
         case "error":
           this.alert = {
             status: true,
-            message: error,
+            message,
             color: "red",
             type: "danger",
           };
@@ -115,36 +116,18 @@ export default {
       }
     },
 
-    submitExaminer(examiner) {
-      let postUrl = "/api/examiners/new";
-      const formdata = new FormData();
-
-      Object.entries(examiner).map(([key, value]) => {
-        formdata.append(key, value);
-      });
-
-      axios
-        .post(postUrl, formdata)
-        .then(({ data }) => {
-          const { examiners } = useExaminerStore();
-          examiners.push(data.examiner);
-          this.displayAlert("success");
-        })
-        .catch((error) => {
-          // console.log(error.response);
-          if (error.response.status == 409) {
-            this.displayAlert("warning");
-          } else {
-            this.displayAlert("error");
-          }
-        });
-    },
-    handleSubmit(e) {
+    async handleSubmit(e) {
       e.preventDefault();
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
-        this.submitExaminer(this.examiner);
+        const { data, status } = await this.submitExaminer(this.examiner);
+
+        if (status === 201)
+          this.displayAlert("success", "Ajout du nouvel examinateur réussi");
+        else if (status === 409)
+          this.displayAlert("warning", "Ce médecin existe déjà");
+        else this.displayAlert("error", data.message);
       }
     },
 
