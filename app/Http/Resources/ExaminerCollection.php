@@ -15,6 +15,8 @@ class ExaminerCollection extends ResourceCollection
 
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+					'examiners' => $this->collection
+				];
     }
 }

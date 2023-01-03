@@ -14,6 +14,8 @@ class PatientCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+					'patients' => $this->collection
+				];
     }
 }

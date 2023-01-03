@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class Examiner extends Model
 	public function storeNew(Request $request)
 	{
 		if ($this->findUserByName($request->name)) {
-			return response([
+			return response()->json([
 				'message' => 'Already exist'
 			], Response::HTTP_CONFLICT);
 		} else {
@@ -35,17 +34,13 @@ class Examiner extends Model
 				'examinateur' => $request->name
 			]);
 
-			return response( [
-				'examiner' => new ExaminerResource($examiner)
-			], Response::HTTP_CREATED);
+			return response()->json((new ExaminerResource($examiner)), Response::HTTP_CREATED);
 		}
 	}
 
 	public function list()
 	{
-		return response([
-			'examiners' => new ExaminerCollection($this->all())
-		], Response::HTTP_OK);
+		return response()->json((new ExaminerCollection($this->all())), Response::HTTP_OK);
 	}
 
 	public function edit(Request $request, int $id)
@@ -55,12 +50,12 @@ class Examiner extends Model
 		]);
 
 		if($examiner === 0) {
-			return response([
+			return response()->json([
 				'message' => 'Resource not found'
 			], Response::HTTP_NOT_FOUND);
 		}
 
-		return response([
+		return response()->json([
 			'message' => 'Updated successfully'
 		], Response::HTTP_OK);
 	}

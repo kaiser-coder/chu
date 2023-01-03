@@ -50,4 +50,9 @@ class PatientController extends Controller
 		}
 
 	} */
+
+	public function store(Request $request)
+	{
+		return (new Patient)->storeNew($request);
+	}
 }
