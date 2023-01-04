@@ -22,6 +22,7 @@ class Patient extends Model
 	protected $casts = [
 		'date_naiss' => 'date'
 	];
+	protected $primaryKey = 'id_patient';
 
 	public function getDateNaissAttribute($birthdate)
 	{
@@ -33,11 +34,6 @@ class Patient extends Model
 		return Str::ucfirst($lastname);
 	}
 
-	public function setAgeAttribute($age)
-	{
-		$this->attributes['age'] = Carbon::now()->diffInYears($this->attributes['date_naiss']);
-	}
-
 	public function getPrenomAttribute($firstname)
 	{
 		return Str::ucfirst($firstname);
@@ -45,7 +41,7 @@ class Patient extends Model
 
 	public function assistant()
 	{
-		return $this->hasOne(Assistant::class);
+		return $this->belongsTo(Assistant::class, 'id_accomp');
 	}
 
 	public function cause()
@@ -63,17 +59,19 @@ class Patient extends Model
 		return response()->json((new PatientCollection($this->all())), Response::HTTP_OK);
 	}
 
-	public function findPatient(Request $request)
+	public function findPatient(array $request)
 	{
-		return $this->where($request);
+		$attributes = $this->getPatientFormatedData($request);
+		return $this->where($attributes)->first();
 	}
 
-	public function scopeCreateRelativeAssistant(Builder $query, array $assistant)
+	public function createRelativeAssistant(Model $patient, array $assistant)
 	{
-		return $query->assistant()->insert($assistant);
+		$attributes = $this->getAssistantFormatedData($assistant);
+		return $patient->assistant()->insert($attributes);
 	}
 
-	public function scopeCreateRelativeTreatment(Builder $query, array $treatment)
+	/* public function scopeCreateRelativeTreatment(Builder $query, array $treatment)
 	{
 		return $query->treatment()->insert($treatment);
 	}
@@ -81,21 +79,49 @@ class Patient extends Model
 	public function scopeCreateRelativeCause(Builder $query, array $cause)
 	{
 		return $query->cause()->create($cause);
+	} */
+
+	private function getPatientFormatedData(array $request)
+	{
+		return [
+			'sexe' => $request['gender'],
+			'nom_patient' => $request['firstname'],
+			'prenom' => $request['lastname'],
+			'date_naiss' => $request['birthdate'],
+			'adresse' => $request['address'],
+			'profession' => $request['job'],
+			'remarque' => $request['observation']
+		];
+	}
+
+	private function getAssistantFormatedData(array $request)
+	{
+		return [
+			'nom' => $request['fullname'],
+			'adresse' => $request['address'],
+			'contact' => $request['contact'],
+		];
+	}
+
+	public function storePatient(array $patient)
+	{
+		$attributes = $this->getPatientFormatedData($patient);
+		$attributes['age'] = Carbon::now()->diffInYears($attributes['date_naiss']);
+		return $this->create($attributes);
 	}
 
 	public function storeNew(Request $request)
 	{
-		if($this->findPatient($request->input('patient'))) {
-			$created_patient = $this->create($request->only('patient'));
+		if(!$this->findPatient($request->patient)) {
+			$created_patient = $this->storePatient($request->patient);
 
-			$created_patient
-				->createRelativeAssistant($request->only('assistant'))
-				->createRelativeTreatment($request->only('treatment'));
+			$this->createRelativeAssistant($created_patient, $request->assistant);
 
-			$created_cause = $created_patient->createRelativeCause($request->only('cause'));
-			$created_cause->createRelativeDriver($request->only('driver'));
+			/*
+			$created_cause = $created_patient->createRelativeCause($request->cause);
+			$created_cause->createRelativeDriver($request->responsible_driver); */
 
-			return response()->json((new PatientResource($created_patient)), Response::HTTP_OK);
+			return response()->json((new PatientResource($created_patient->with('assistant'))), Response::HTTP_OK);
 		}
 
 		return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);

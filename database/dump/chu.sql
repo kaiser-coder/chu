@@ -1,8 +1,9 @@
 /*
-SQLyog Enterprise - MySQL GUI v8.1 
+SQLyog Enterprise - MySQL GUI v8.1
 MySQL - 5.5.8-log : Database - chu
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -22,7 +23,7 @@ DROP TABLE IF EXISTS `accompagnant`;
 CREATE TABLE `accompagnant` (
   `id_accomp` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) DEFAULT NULL,
-  `contact` int(10) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
   `adresse` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_accomp`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;

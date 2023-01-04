@@ -12,9 +12,10 @@ class Assistant extends Model
 	protected $table = "accompagnant";
 	protected $guarded = [];
 	public $timestamps = false;
+	protected $primaryKey = 'id_accomp';
 
 	public function patient()
 	{
-		return $this->belongsTo(Patient::class);
+		return $this->hasOne(Patient::class, 'id_accomp');
 	}
 }
