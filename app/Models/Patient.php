@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Http\Resources\PatientResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Resources\PatientResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\PatientCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class Patient extends Model
 {
@@ -17,6 +19,29 @@ class Patient extends Model
 	protected $table = "patient";
 	protected $guarded = [];
 	public $timestamps = false;
+	protected $casts = [
+		'date_naiss' => 'date'
+	];
+
+	public function getDateNaissAttribute($birthdate)
+	{
+		return Carbon::parse($birthdate)->format('d F Y');
+	}
+
+	public function getNomPatientAttribute($lastname)
+	{
+		return Str::ucfirst($lastname);
+	}
+
+	public function setAgeAttribute($age)
+	{
+		$this->attributes['age'] = Carbon::now()->diffInYears($this->attributes['date_naiss']);
+	}
+
+	public function getPrenomAttribute($firstname)
+	{
+		return Str::ucfirst($firstname);
+	}
 
 	public function assistant()
 	{
@@ -61,16 +86,16 @@ class Patient extends Model
 	public function storeNew(Request $request)
 	{
 		if($this->findPatient($request->input('patient'))) {
-			$createdPatient = $this->create($request->only('patient'));
+			$created_patient = $this->create($request->only('patient'));
 
-			$createdPatient
-				->scopeCreateRelativeAssistant($request->only('assistant'))
-				->scopeCreateRelativeTreatment($request->only('treatment'));
+			$created_patient
+				->createRelativeAssistant($request->only('assistant'))
+				->createRelativeTreatment($request->only('treatment'));
 
-			$createdCause = $createdPatient->scopeCreateRelativeCause($request->only('cause'));
-			$createdCause->scopeCreateRelativeDriver($request->only('driver'));
+			$created_cause = $created_patient->createRelativeCause($request->only('cause'));
+			$created_cause->createRelativeDriver($request->only('driver'));
 
-			return response()->json((new PatientResource($createdPatient)), Response::HTTP_OK);
+			return response()->json((new PatientResource($created_patient)), Response::HTTP_OK);
 		}
 
 		return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);

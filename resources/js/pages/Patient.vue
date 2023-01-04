@@ -42,7 +42,7 @@ export default {
           text: "Nom",
           align: "start",
           sortable: true,
-          value: "name",
+          value: "lastname",
         },
         {
           text: "Prenom",

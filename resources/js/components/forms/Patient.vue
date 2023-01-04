@@ -55,7 +55,8 @@
             v-model="newPatient.date_naiss"
           ></v-text-field
         ></v-col>
-        <v-col lg="6" class="px-0 pl-1"
+        <!-- TODO: Automatically generate -->
+        <!--  <v-col lg="6" class="px-0 pl-1"
           ><v-text-field
             label="Age"
             outlined
@@ -66,7 +67,7 @@
             :rules="rules.age"
             v-model="newPatient.age"
           ></v-text-field
-        ></v-col>
+        ></v-col> -->
       </v-row>
       <v-row>
         <v-col lg="12" class="pa-0">
@@ -77,7 +78,7 @@
             type="text"
             required
             name="adresse"
-            :rules="rules.adress"
+            :rules="rules.address"
             v-model="newPatient.adresse"
           ></v-text-field>
         </v-col>
@@ -105,7 +106,7 @@
             type="text"
             required
             name="remarque"
-            :rules="rules.notice"
+            :rules="rules.observation"
             v-model="newPatient.remarque"
           ></v-textarea>
         </v-col>
@@ -132,9 +133,9 @@ export default {
         lastname: [(v) => !!v || "Le prénom est requis"],
         birthdate: [(v) => !!v || "La date de naissance est requise"],
         age: [(v) => !!v || "Le champ âge est requis"],
-        adress: [(v) => !!v || "L'adresse est requise"],
+        address: [(v) => !!v || "L'adresse est requise"],
         job: [(v) => !!v || "La profession est requise"],
-        // notice: [(v) => !!v || "Le champ remarque est requis"],
+        // observation: [(v) => !!v || "Le champ remarque est requis"],
       },
       newPatient: {
         sexe: null,
