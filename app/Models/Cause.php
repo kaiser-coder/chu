@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cause extends Model
@@ -24,8 +24,20 @@ class Cause extends Model
 		return $this->hasOne(Driver::class);
 	}
 
-	public function scopeCreateRelativeDriver(Builder $query, array $driver)
+	private function mapCauseData(array $request)
 	{
-		return $query->driver()->insert($driver);
+		return [
+			"victime" => $request['responsible_vehicle'],
+			"vehicule" => $request['victim_category'],
+			"securite" => $request['security'],
+			"autre" => $request['others']
+		];
+	}
+
+	public function createRelatedCause(array $cause, int $driver_id): int
+	{
+		$attributes = $this->mapCauseData($cause);
+		$attributes['id_conducteur'] = $driver_id;
+		return DB::table('cause')->insertGetId($attributes);
 	}
 }

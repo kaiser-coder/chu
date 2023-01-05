@@ -12,4 +12,7 @@ patients retirer id_accompagnant, id_cause ✔
 --- Avant livraison ---
 supprimer les valeurs par défaut des champs
 
-Les prévenir que le champ 'contact' dans la table 'accompagnant' doit être de type chaine de caractères
+Tous les champs 'contact' dans toutes les tables doit être de type chaine de caractères
+
+Etablir les clés etrangéres pour les relations de tables:
+* accompagnants-patients

@@ -35,7 +35,7 @@ class PatientControllerTest extends TestCase
 				],
 				'cause' => [
 					'responsible_vehicle' => 'Voiture',
-					'victim' => 'Passager',
+					'victim_category' => 'Passager',
 					'security' => 'Casqué',
 					'others' => $this->faker->paragraphs(3, true)
 				],

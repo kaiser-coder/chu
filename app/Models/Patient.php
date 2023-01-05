@@ -8,6 +8,7 @@ use App\Http\Resources\PatientResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\PatientCollection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
@@ -41,7 +42,7 @@ class Patient extends Model
 
 	public function assistant()
 	{
-		return $this->belongsTo(Assistant::class, 'id_accomp');
+		return $this->belongsTo(Assistant::class);
 	}
 
 	public function cause()
@@ -59,29 +60,7 @@ class Patient extends Model
 		return response()->json((new PatientCollection($this->all())), Response::HTTP_OK);
 	}
 
-	public function findPatient(array $request)
-	{
-		$attributes = $this->getPatientFormatedData($request);
-		return $this->where($attributes)->first();
-	}
-
-	public function createRelativeAssistant(Model $patient, array $assistant)
-	{
-		$attributes = $this->getAssistantFormatedData($assistant);
-		return $patient->assistant()->insert($attributes);
-	}
-
-	/* public function scopeCreateRelativeTreatment(Builder $query, array $treatment)
-	{
-		return $query->treatment()->insert($treatment);
-	}
-
-	public function scopeCreateRelativeCause(Builder $query, array $cause)
-	{
-		return $query->cause()->create($cause);
-	} */
-
-	private function getPatientFormatedData(array $request)
+	private function mapPatientData(array $request)
 	{
 		return [
 			'sexe' => $request['gender'],
@@ -94,36 +73,35 @@ class Patient extends Model
 		];
 	}
 
-	private function getAssistantFormatedData(array $request)
+	public function findPatient(array $request)
 	{
-		return [
-			'nom' => $request['fullname'],
-			'adresse' => $request['address'],
-			'contact' => $request['contact'],
-		];
+		$attributes = $this->mapPatientData($request);
+		return $this->where($attributes)->first();
 	}
 
-	public function storePatient(array $patient)
+	public function createPatient(array $patient, int $assistant_id, int $cause_id): Patient
 	{
-		$attributes = $this->getPatientFormatedData($patient);
+		$attributes = $this->mapPatientData($patient);
 		$attributes['age'] = Carbon::now()->diffInYears($attributes['date_naiss']);
-		return $this->create($attributes);
+		$attributes['id_accomp'] = $assistant_id;
+		$attributes['id_cause'] = $cause_id;
+
+		$id = DB::table('patient')->insertGetId($attributes);
+		return $this->find($id)->first();
 	}
 
 	public function storeNew(Request $request)
 	{
 		if(!$this->findPatient($request->patient)) {
-			$created_patient = $this->storePatient($request->patient);
+			$assistant_id = (new Assistant)->createRelatedAssistant($request->assistant);
+			$driver_id = (new Driver)->createRelatedDriver($request->responsible_driver);
+			$cause_id = (new Cause)->createRelatedCause($request->cause, $driver_id);
 
-			$this->createRelativeAssistant($created_patient, $request->assistant);
+			$created_patient = $this->createPatient($request->patient, $assistant_id, $cause_id);
 
-			/*
-			$created_cause = $created_patient->createRelativeCause($request->cause);
-			$created_cause->createRelativeDriver($request->responsible_driver); */
-
-			return response()->json((new PatientResource($created_patient->with('assistant'))), Response::HTTP_OK);
+			return response()->json((new PatientResource($created_patient)), Response::HTTP_OK);
 		}
 
-		return response()->json(['message' => 'Resource not found'], Response::HTTP_NOT_FOUND);
+		return response()->json(["message" => "Already exist"], Response::HTTP_CONFLICT);
 	}
 }
