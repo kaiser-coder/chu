@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\PatientResource;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources\PatientCollection;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 
 class Patient extends Model
 {
@@ -87,19 +86,26 @@ class Patient extends Model
 		$attributes['id_cause'] = $cause_id;
 
 		$id = DB::table('patient')->insertGetId($attributes);
-		return $this->find($id)->first();
+		return $this->firstWhere("id_patient", $id);
 	}
 
 	public function storeNew(Request $request)
 	{
-		if(!$this->findPatient($request->patient)) {
-			$assistant_id = (new Assistant)->createRelatedAssistant($request->assistant);
-			$driver_id = (new Driver)->createRelatedDriver($request->responsible_driver);
-			$cause_id = (new Cause)->createRelatedCause($request->cause, $driver_id);
+		if (!$this->findPatient($request->patient)) {
+			DB::transaction(function () use ($request) {
+				$assistant_id = (new Assistant)
+					->createRelatedAssistant($request->assistant);
 
-			$created_patient = $this->createPatient($request->patient, $assistant_id, $cause_id);
+				$driver_id = (new Driver)
+					->createRelatedDriver($request->responsible_driver);
 
-			return response()->json((new PatientResource($created_patient)), Response::HTTP_OK);
+				$cause_id = (new Cause)
+					->createRelatedCause($request->cause, $driver_id);
+
+				$this->createPatient($request->patient, $assistant_id, $cause_id);
+			});
+
+			return response()->json((new PatientResource($this->all()->last())), Response::HTTP_OK);
 		}
 
 		return response()->json(["message" => "Already exist"], Response::HTTP_CONFLICT);
