@@ -9,9 +9,9 @@
             dense
             :items="['Homme', 'Femme']"
             required
-            name="sexe"
+            name="gender"
             :rules="rules.gender"
-            v-model="newPatient.sexe"
+            v-model="patient.gender"
           ></v-select
         ></v-col>
       </v-row>
@@ -23,9 +23,9 @@
             dense
             type="text"
             required
-            name="nom_patient"
+            name="firstname"
             :rules="rules.firstname"
-            v-model="newPatient.nom_patient"
+            v-model="patient.firstname"
           ></v-text-field
         ></v-col>
       </v-row>
@@ -36,9 +36,9 @@
             outlined
             dense
             type="text"
-            name="prenom"
+            name="lastname"
             :rules="rules.lastname"
-            v-model="newPatient.prenom"
+            v-model="patient.lastname"
           ></v-text-field
         ></v-col>
       </v-row>
@@ -50,9 +50,9 @@
             dense
             type="date"
             required
-            name="date_naiss"
+            name="birthdate"
             :rules="rules.birthdate"
-            v-model="newPatient.date_naiss"
+            v-model="patient.birthdate"
           ></v-text-field
         ></v-col>
         <!-- TODO: Automatically generate -->
@@ -65,7 +65,7 @@
             required
             name="age"
             :rules="rules.age"
-            v-model="newPatient.age"
+            v-model="patient.age"
           ></v-text-field
         ></v-col> -->
       </v-row>
@@ -77,9 +77,9 @@
             dense
             type="text"
             required
-            name="adresse"
+            name="address"
             :rules="rules.address"
-            v-model="newPatient.adresse"
+            v-model="patient.address"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -93,7 +93,7 @@
             required
             name="profession"
             :rules="rules.job"
-            v-model="newPatient.profession"
+            v-model="patient.job"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -107,7 +107,7 @@
             required
             name="remarque"
             :rules="rules.observation"
-            v-model="newPatient.remarque"
+            v-model="patient.observation"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -124,6 +124,10 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useStepperStore } from "../../stores/stepper";
+import { usePatientStore } from "../../stores/patients.model";
+
 export default {
   data() {
     return {
@@ -137,25 +141,18 @@ export default {
         job: [(v) => !!v || "La profession est requise"],
         // observation: [(v) => !!v || "Le champ remarque est requis"],
       },
-      newPatient: {
-        sexe: null,
-        nom_patient: null,
-        prenom: null,
-        date_naiss: null,
-        age: null,
-        adresse: null,
-        profession: null,
-        remarque: null,
-      },
+      patient: {},
     };
   },
   methods: {
+    ...mapActions(useStepperStore, ["switchStep"]),
+    ...mapActions(usePatientStore, ["setActivePatient"]),
+
     handleClick() {
       const isValid = this.$refs.form.validate();
 
-      if (isValid) {
-        this.$emit("onNextStep", 2, { newPatient: this.newPatient });
-      }
+      this.switchStep(2);
+      this.setActivePatient({ patient: this.patient });
     },
   },
 };

@@ -12,7 +12,7 @@
               required
               name="id_medecin"
               :rules="rules.examiner"
-              v-model="newConsultation.id_medecin"
+              v-model="examination.examiner_id"
             ></v-select>
           </v-col>
         </v-row>
@@ -26,7 +26,7 @@
               required
               name="date_consul"
               :rules="rules.date"
-              v-model="newConsultation.date_consul"
+              v-model="examination.date"
             ></v-text-field>
           </v-col>
           <v-col cols="6" class="px-0 pl-1">
@@ -37,8 +37,8 @@
               type="time"
               required
               name="heure"
-              :rules="rules.time"
-              v-model="newConsultation.heure"
+              :rules="examination.time"
+              v-model="examination.time"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -52,13 +52,13 @@
             dense
             name="vehicule"
             :items="cases"
-            v-model="newConsultation.type"
+            v-model="examination.type"
             required
           ></v-select>
         </v-col>
       </v-row>
 
-      <div v-show="newConsultation.type === 'A.C'">
+      <div v-show="examination.type === 'A.C'">
         <v-row>
           <v-col cols="12" class="pa-0 mb-10">
             <h3>Responsable</h3>
@@ -75,7 +75,7 @@
                 name="vehicule"
                 :items="['Voiture', 'Moto', 'Bicyclette', 'Aucun']"
                 :rules="rules.car"
-                v-model="newConsultation.vehicule"
+                v-model="responsible_driver.vehicle"
                 required
               ></v-select>
             </v-col>
@@ -89,7 +89,7 @@
                 type="text"
                 name="nom"
                 :rules="rules.name"
-                v-model="newConsultation.nom"
+                v-model="responsible_driver.lastname"
                 required
               ></v-text-field>
             </v-col>
@@ -101,7 +101,7 @@
                 type="text"
                 name="prenom"
                 :rules="rules.firstname"
-                v-model="newConsultation.prenom"
+                v-model="responsible_driver.firstname"
                 required
               ></v-text-field>
             </v-col>
@@ -115,7 +115,7 @@
                 type="text"
                 name="contact"
                 :rules="rules.contact"
-                v-model="newConsultation.contact"
+                v-model="responsible_driver.contact"
                 required
               ></v-text-field>
             </v-col>
@@ -129,7 +129,7 @@
                 type="text"
                 name="adresse"
                 :rules="rules.address"
-                v-model="newConsultation.adresse"
+                v-model="responsible_driver.address"
                 required
               ></v-text-field>
             </v-col>
@@ -142,8 +142,8 @@
                 dense
                 type="text"
                 name="cin"
-                :rules="rules.cin"
-                v-model="newConsultation.cin"
+                :rules="rules.identity_card"
+                v-model="responsible_driver.identity_card"
                 required
               ></v-text-field>
             </v-col>
@@ -166,12 +166,12 @@
               :items="['Aucun', 'Passager', 'Piéton']"
               name="victime"
               :rules="rules.victim"
-              v-model="newConsultation.victime"
+              v-model="cause.victim_category"
               required
             ></v-select>
           </v-col>
         </v-row>
-        <v-row v-show="newConsultation.type === 'A.T'">
+        <v-row v-show="examination.type === 'A.T'">
           <v-col cols="12" class="pa-0">
             <v-select
               label="Véhicule de la victime"
@@ -180,12 +180,12 @@
               :items="['Aucun', 'Voiture', 'Moto', 'Bicyclette']"
               name="vehicule"
               :rules="rules.car"
-              v-model="newConsultation.vehicule"
+              v-model="examination.vehicle"
               required
             ></v-select>
           </v-col>
         </v-row>
-        <v-row v-show="newConsultation.type === 'A.T'">
+        <v-row v-show="examination.type === 'A.T'">
           <v-col cols="12" class="pa-0">
             <v-select
               label="Sécurité"
@@ -193,7 +193,7 @@
               dense
               :items="['Aucun', 'Ceinturé', 'Casqué']"
               :rules="rules.security"
-              v-model="newConsultation.securite"
+              v-model="cause.security"
               name="securite"
               required
             ></v-select>
@@ -207,7 +207,7 @@
               dense
               :items="['Aucun', 'Alcool', 'Médicaments', 'Stupéfiants']"
               :rules="rules.others"
-              v-model="newConsultation.autre"
+              v-model="cause.others"
               name="autre"
               required
             ></v-select>
@@ -222,7 +222,7 @@
               type="text"
               name="histoire"
               :rules="rules.history"
-              v-model="newConsultation.histoire"
+              v-model="examination.histoire"
               required
             ></v-textarea>
           </v-col>
@@ -235,7 +235,7 @@
               dense
               type="text"
               name="examen"
-              v-model="newConsultation.examen"
+              v-model="examination.examen"
               required
             ></v-textarea>
           </v-col>
@@ -245,7 +245,7 @@
             <v-btn color="primary" class="mr-1" @click="handleClick">
               Continuer
             </v-btn>
-            <v-btn text @click="dialog = false"> Abandonner </v-btn>
+            <v-btn text> Abandonner </v-btn>
           </v-col>
         </v-row>
       </section>
@@ -254,8 +254,11 @@
 </template>
 
 <script>
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useExaminerStore } from "../../stores/examiners.model";
+import { useStepperStore } from "../../stores/stepper";
+import { usePatientStore } from "../../stores/patients.model";
+
 export default {
   data() {
     return {
@@ -275,24 +278,6 @@ export default {
         history: [(v) => !!v || "Le champ histoire est requis"],
         examination: [(v) => !!v || "Le champ examen est requis"],
       },
-      newConsultation: {
-        id_medecin: null,
-        date_consul: null,
-        heure: null,
-        type: null,
-        vehicule: null,
-        nom: null,
-        prenom: null,
-        contact: null,
-        adresse: null,
-        cin: null,
-        victime: null,
-        vehicule: null,
-        securite: null,
-        autre: null,
-        histoire: null,
-        examen: null,
-      },
       cases: [
         "A.T",
         "A.Sco",
@@ -304,19 +289,30 @@ export default {
         "A.V.P",
         "A.C",
       ],
+      responsible_driver: {},
+      examination: {},
+      cause: {},
     };
   },
   methods: {
+    ...mapActions(useExaminerStore, ["fetchExaminers"]),
+    ...mapActions(useStepperStore, ["switchStep"]),
+    ...mapActions(usePatientStore, ["setActivePatient"]),
+
     handleClick() {
       const isValid = this.$refs.form.validate();
 
-      if (isValid) {
-        this.$emit("onNextStep", 4, { newConsultation: this.newConsultation });
-      }
+      this.switchStep(4);
+      this.setActivePatient({
+        responsible_driver: this.responsible_driver,
+        examination: this.examination,
+        cause: this.cause,
+      });
     },
   },
   computed: {
     ...mapState(useExaminerStore, ["examiners"]),
+
     selectItems() {
       let items = [];
 
@@ -330,6 +326,9 @@ export default {
 
       return items;
     },
+  },
+  mounted() {
+    this.fetchExaminers();
   },
 };
 </script>

@@ -11,7 +11,7 @@
             required
             name="nom"
             :rules="rules.fullname"
-            v-model="newAssistant.nom"
+            v-model="assistant.fullname"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -24,7 +24,7 @@
             type="text"
             required
             name="adresse"
-            v-model="newAssistant.adresse"
+            v-model="assistant.address"
             :rules="rules.address"
           ></v-text-field>
         </v-col>
@@ -38,7 +38,7 @@
             type="text"
             required
             name="contact"
-            v-model="newAssistant.contact"
+            v-model="assistant.contact"
             :rules="rules.contact"
           ></v-text-field>
         </v-col>
@@ -56,6 +56,10 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useStepperStore } from "../../stores/stepper";
+import { usePatientStore } from "../../stores/patients.model";
+
 export default {
   data() {
     return {
@@ -64,20 +68,18 @@ export default {
         address: [(v) => !!v || "L'adresse de l'accompagnat est requise"],
         contact: [(v) => !!v || "Le contact est requis"],
       },
-      newAssistant: {
-        nom: null,
-        adresse: null,
-        contact: null,
-      },
+      assistant: {},
     };
   },
   methods: {
+    ...mapActions(useStepperStore, ["switchStep"]),
+    ...mapActions(usePatientStore, ["setActivePatient"]),
+
     handleClick() {
       const isValid = this.$refs.form.validate();
 
-      if (isValid) {
-        this.$emit("onNextStep", 3, { newAssistant: this.newAssistant });
-      }
+      this.switchStep(3);
+      this.setActivePatient({ assistant: this.assistant });
     },
   },
 };

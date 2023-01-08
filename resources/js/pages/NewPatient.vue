@@ -1,19 +1,22 @@
 <template>
   <v-row justify="center">
     <v-col>
-      <v-stepper v-model="e1">
+      <v-stepper v-model="active">
         <v-stepper-header>
           <template v-for="step in steps">
             <v-stepper-step
               editable
               :key="`${step.key}-step`"
               :step="step.key"
-              :complete="e1 > step.key"
+              :complete="active > step.key"
             >
               {{ step.title }}
             </v-stepper-step>
 
-            <v-divider v-if="step.key !== steps.length" :key="step.key"></v-divider>
+            <v-divider
+              v-if="step.key !== steps.length"
+              :key="step.key"
+            ></v-divider>
           </template>
         </v-stepper-header>
 
@@ -22,28 +25,28 @@
             <!-- Patient form -->
             <v-stepper-content step="1">
               <v-card-text>
-                <Patient @onNextStep="nextStep" />
+                <Patient />
               </v-card-text>
             </v-stepper-content>
 
             <!-- Assistant form -->
             <v-stepper-content step="2">
               <v-card-text>
-                <Assistant @onNextStep="nextStep" />
+                <Assistant />
               </v-card-text>
             </v-stepper-content>
 
             <!-- Consultation form -->
             <v-stepper-content step="3">
               <v-card-text>
-                <Consultation @onNextStep="nextStep" />
+                <Consultation />
               </v-card-text>
             </v-stepper-content>
 
             <!-- Treatment form -->
             <v-stepper-content step="4">
               <v-card-text>
-                <Treatment @onNextStep="nextStep" @onResetForm="resetForm" />
+                <Treatment @onResetForm="resetForm" />
               </v-card-text>
             </v-stepper-content>
           </v-stepper-items>
@@ -59,13 +62,13 @@ import Assistant from "../components/forms/Assistant.vue";
 import Consultation from "../components/forms/Consultation.vue";
 import Treatment from "../components/forms/Treatment.vue";
 
-import axios from "axios";
+import { useStepperStore } from "../stores/stepper";
+import { mapState } from "pinia";
 
 export default {
   name: "NewPatient",
   data() {
     return {
-      e1: 1,
       steps: [
         {
           key: 1,
@@ -82,30 +85,10 @@ export default {
     isShown: Boolean,
   },
   components: { Patient, Assistant, Consultation, Treatment },
+  computed: {
+    ...mapState(useStepperStore, ["active"]),
+  },
   methods: {
-    nextStep(n, data) {
-      Object.entries(data).forEach(([key, value]) => (this.form[key] = value));
-      this.submit();
-
-      if (n) this.e1 = n;
-      else this.submit();
-    },
-    submit() {
-      const postPatientUrl = "/api/patients";
-
-      console.log(this.form);
-
-      axios
-        .post(postPatientUrl, this.form)
-        .then((result) => {
-          console.log(result);
-          this.e1 = 1;
-          this.dialog = false;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
     resetForm() {
       console.log("resetForm");
       this.form.reset();

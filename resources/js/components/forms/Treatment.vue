@@ -8,28 +8,10 @@
             outlined
             dense
             name="type"
-            :items="[
-              'Aucun',
-              'ECG',
-              'Echographie',
-              'Scan',
-              'Echo abdo',
-              'Ech thorax',
-              'Echo pelvienne',
-              'Radiographie multiple',
-              'Radio crâne',
-              'Radio membre supérieur',
-              'Radio membre inférieur',
-              'Radio thorax',
-              'Radio ASP',
-              'Radio coeur-poumons',
-              'Radio épaules',
-              'Radio bassin',
-              'Radio dorsale',
-            ]"
+            :items="types"
             required
             :rules="rules.type"
-            v-model="newTreatment.type"
+            v-model="treatment.type"
           ></v-select>
         </v-col>
       </v-row>
@@ -43,7 +25,7 @@
             type="text"
             required
             :rules="rules.treatment"
-            v-model="newTreatment.autre"
+            v-model="treatment.others"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -60,6 +42,9 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { usePatientStore } from "../../stores/patients.model";
+
 export default {
   data() {
     return {
@@ -67,20 +52,35 @@ export default {
         // type: [(v) => !!v || "Le champ type est requis"],
         // treatment: [(v) => !!v || "Le champ autres examen est requis"],
       },
-      newTreatment: {
-        type: null,
-        autre: null,
-      },
+      treatment: {},
+      types: [
+        "Aucun",
+        "ECG",
+        "Echographie",
+        "Scan",
+        "Echo abdo",
+        "Ech thorax",
+        "Echo pelvienne",
+        "Radiographie multiple",
+        "Radio crâne",
+        "Radio membre supérieur",
+        "Radio membre inférieur",
+        "Radio thorax",
+        "Radio ASP",
+        "Radio coeur-poumons",
+        "Radio épaules",
+        "Radio bassin",
+        "Radio dorsale",
+      ],
     };
   },
   methods: {
+    ...mapActions(usePatientStore, ["setActivePatient"]),
+
     handleSubmit() {
       const isValid = this.$refs.form.validate();
 
-      if (isValid) {
-        console.log("Final form submit");
-        this.$emit("onNextStep", null, { newTreatment: this.newTreatment });
-      }
+      this.setActivePatient({ treatment: this.treatment });
     },
     handleReset() {
       console.log("handleReset");

@@ -5,6 +5,7 @@ export const usePatientStore = defineStore('patients', {
 	state() {
 		return {
 			patients: [],
+			active: {}
 		}
 	},
 	actions: {
@@ -16,6 +17,12 @@ export const usePatientStore = defineStore('patients', {
 					this.patients = data.patients;
 				})
 				.catch((error) => console.error(error));
+		},
+		setActivePatient(item) {
+			this.active = { ...this.active, ...item };
+		},
+		submitPatient() {
+			console.log("🚀 ~ file: patients.model.js:21 ~ submitPatient ~ patient", this.patient)
 		}
 	},
 	getters: {
