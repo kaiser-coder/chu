@@ -2,7 +2,7 @@
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           10.10.2-MariaDB-1:10.10.2+maria~ubu2204 - mariadb.org binary distribution
 -- SE du serveur:                debian-linux-gnu
--- HeidiSQL Version:             12.3.0.6589
+-- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `accompagnant` (
   PRIMARY KEY (`id_accomp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.accompagnant : ~0 rows (environ)
 
 -- Listage de la structure de table chu. admin
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.admin : ~1 rows (environ)
+INSERT INTO `admin` (`id_admin`, `email`, `password`) VALUES
+	(1, 'example@dev.com', 'password');
 
 -- Listage de la structure de table chu. cause
 CREATE TABLE IF NOT EXISTS `cause` (
@@ -46,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `cause` (
   PRIMARY KEY (`id_cause`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.cause : ~0 rows (environ)
 
 -- Listage de la structure de table chu. conclusion
 CREATE TABLE IF NOT EXISTS `conclusion` (
@@ -55,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `conclusion` (
   `id_patient` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.conclusion : ~0 rows (environ)
 
 -- Listage de la structure de table chu. conducteur
 CREATE TABLE IF NOT EXISTS `conducteur` (
@@ -69,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `conducteur` (
   PRIMARY KEY (`id_conducteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.conducteur : ~0 rows (environ)
 
 -- Listage de la structure de table chu. consulter
 CREATE TABLE IF NOT EXISTS `consulter` (
@@ -82,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `consulter` (
   PRIMARY KEY (`id_consulter`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.consulter : ~0 rows (environ)
 
 -- Listage de la structure de table chu. medecin
 CREATE TABLE IF NOT EXISTS `medecin` (
@@ -91,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `medecin` (
   PRIMARY KEY (`id_medecin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.medecin : ~0 rows (environ)
 
 -- Listage de la structure de table chu. patient
 CREATE TABLE IF NOT EXISTS `patient` (
@@ -109,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   PRIMARY KEY (`id_patient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.patient : ~0 rows (environ)
 
 -- Listage de la structure de table chu. suivre
 CREATE TABLE IF NOT EXISTS `suivre` (
@@ -119,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `suivre` (
   PRIMARY KEY (`id_suivie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.suivre : ~0 rows (environ)
 
 -- Listage de la structure de table chu. traitement
 CREATE TABLE IF NOT EXISTS `traitement` (
@@ -132,18 +134,18 @@ CREATE TABLE IF NOT EXISTS `traitement` (
   PRIMARY KEY (`id_traitement`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.traitement : ~0 rows (environ)
 
 -- Listage de la structure de table chu. typologie
 CREATE TABLE IF NOT EXISTS `typologie` (
   `id_typo` int(11) NOT NULL AUTO_INCREMENT,
-  `typologie` varchar(30) DEFAULT NULL,
+  `typologie` enum('A.T','A.Sco','A.D','A.Spo','A.R.C','Eva.San','Cas.Med','A.V.P','A.C') DEFAULT NULL,
   `histoire` text DEFAULT NULL,
   `id_cause` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_typo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table chu.typologie : ~0 rows (environ)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

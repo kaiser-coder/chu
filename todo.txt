@@ -1,6 +1,5 @@
 Boutons editer - supprimer (avec confirmations) - voir les détails pages: patients - examinateurs
 Tester le formulaire de création pour les patients
-Refactor Authentification using Passport
 Formulaires d'édition
 Login admin - logout
 Réparer le breadcrumb
