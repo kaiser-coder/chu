@@ -50,7 +50,7 @@
             label="Type d'accident"
             outlined
             dense
-            name="vehicule"
+            name="type"
             :items="cases"
             v-model="examination.type"
             required
@@ -160,10 +160,24 @@
         <v-row>
           <v-col cols="12" class="pa-0">
             <v-select
+              label="Véhicule de la victime"
+              outlined
+              dense
+              name="victime"
+              :items="['Aucun', 'Voiture', 'Moto', 'Bicyclette']"
+              :rules="rules.victim_vehicle"
+              v-model="cause.victim_vehicle"
+              required
+            ></v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="pa-0">
+            <v-select
               label="Victime"
               outlined
               dense
-              :items="['Aucun', 'Passager', 'Piéton']"
+              :items="['Passager', 'Piéton']"
               name="victime"
               :rules="rules.victim"
               v-model="cause.victim_category"

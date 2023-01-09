@@ -39,6 +39,11 @@ class Patient extends Model
 		return Str::ucfirst($firstname);
 	}
 
+	public function getSexeAttribute($genre)
+	{
+		return $genre === "M" ? "Homme" : "Femme";
+	}
+
 	public function assistant()
 	{
 		return $this->belongsTo(Assistant::class);

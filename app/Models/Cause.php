@@ -27,8 +27,8 @@ class Cause extends Model
 	private function mapCauseData(array $request)
 	{
 		return [
-			"victime" => $request['responsible_vehicle'],
-			"vehicule" => $request['victim_category'],
+			"vehicule" => $request['victim_vehicle'],
+			"victime" => $request['victim_category'],
 			"securite" => $request['security'],
 			"autre" => $request['others']
 		];
