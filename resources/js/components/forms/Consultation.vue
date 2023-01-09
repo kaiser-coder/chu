@@ -52,7 +52,7 @@
             dense
             name="type"
             :items="cases"
-            v-model="examination.type"
+            v-model="examination.accident_type"
             required
           ></v-select>
         </v-col>
@@ -150,12 +150,14 @@
           </v-row>
         </section>
       </div>
+
       <v-row>
         <v-col cols="12" class="pa-0 mt-3 mb-10">
           <h3>Victime</h3>
           <v-divider></v-divider>
         </v-col>
       </v-row>
+
       <section>
         <v-row>
           <v-col cols="12" class="pa-0">
@@ -299,7 +301,7 @@ export default {
         "A.Spo",
         "A.R.C",
         "Eva.San",
-        "Cas.Méd",
+        "Cas.Med",
         "A.V.P",
         "A.C",
       ],
