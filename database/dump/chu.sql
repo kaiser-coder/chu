@@ -21,21 +21,7 @@ CREATE TABLE IF NOT EXISTS `accompagnant` (
   `contact` varchar(255) DEFAULT NULL,
   `adresse` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_accomp`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Listage des données de la table chu.accompagnant : ~0 rows (environ)
-
--- Listage de la structure de table chu. admin
-CREATE TABLE IF NOT EXISTS `admin` (
-  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Listage des données de la table chu.admin : ~1 rows (environ)
-INSERT INTO `admin` (`id_admin`, `email`, `password`) VALUES
-	(1, 'example@dev.com', 'password');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage de la structure de table chu. cause
 CREATE TABLE IF NOT EXISTS `cause` (
@@ -46,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `cause` (
   `autre` text DEFAULT NULL,
   `id_conducteur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_cause`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.cause : ~0 rows (environ)
 
@@ -55,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `conclusion` (
   `id_conclusion` int(11) DEFAULT NULL,
   `devenu` varchar(255) DEFAULT NULL,
   `id_patient` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.conclusion : ~0 rows (environ)
 
@@ -69,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `conducteur` (
   `cin` varchar(50) DEFAULT NULL,
   `vehicule` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_conducteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.conducteur : ~0 rows (environ)
 
@@ -82,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `consulter` (
   `id_medecin` int(11) DEFAULT NULL,
   `id_typo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_consulter`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.consulter : ~0 rows (environ)
 
@@ -91,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `medecin` (
   `id_medecin` int(5) NOT NULL AUTO_INCREMENT,
   `examinateur` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_medecin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.medecin : ~0 rows (environ)
 
@@ -109,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `id_accomp` int(11) DEFAULT NULL,
   `id_cause` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.patient : ~0 rows (environ)
 
@@ -119,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `suivre` (
   `id_patient` int(11) DEFAULT NULL,
   `id_traite` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_suivie`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.suivre : ~0 rows (environ)
 
@@ -132,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `traitement` (
   `type` varchar(50) DEFAULT NULL,
   `id_patient` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_traitement`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.traitement : ~0 rows (environ)
 
@@ -143,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `typologie` (
   `histoire` text DEFAULT NULL,
   `id_cause` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_typo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
 
 -- Listage des données de la table chu.typologie : ~0 rows (environ)
 
