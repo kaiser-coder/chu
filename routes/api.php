@@ -18,19 +18,21 @@ use App\Http\Controllers\PatientController;
 |
 */
 
-/* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return $request->user();
-}); */
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-Route::post('/auth', [AuthController::class, 'signin']);
+Route::middleware(['auth:sanctum'])
+	->prefix('/examiners')
+	->group(
+		function () {
+			Route::get('', [ExaminerController::class, 'list'])->name('examiner.list');
+			Route::post('/new', [ExaminerController::class, 'store'])->name('examiner.new');
+			Route::post('/update/{id}', [ExaminerController::class, 'update'])->name('examiner.update');
+		}
+	);
 
-Route::prefix('/examiners')->group(function () {
-	Route::get('', [ExaminerController::class, 'list'])->name('examiner.list');
-	Route::post('/new', [ExaminerController::class, 'store'])->name('examiner.new');
-	Route::post('/update/{id}', [ExaminerController::class, 'update'])->name('examiner.update');
-});
-
-Route::prefix('/patients')->group(function () {
-	Route::get('', [PatientController::class, 'list'])->name('patient.list');
-	Route::post('/new', [PatientController::class, 'store'])->name('patient.create');
-});
+Route::middleware(['auth:sanctum'])
+	->prefix('/patients')
+	->group(function () {
+		Route::get('', [PatientController::class, 'list'])->name('patient.list');
+		Route::post('/new', [PatientController::class, 'store'])->name('patient.create');
+	});
