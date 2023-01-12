@@ -23,7 +23,7 @@
 <script>
 import DataTable from "../components/DataTable.vue";
 
-import { mapActions, mapState } from "pinia";
+import { mapState } from "pinia";
 import { useExaminerStore } from "../stores/examiners.model";
 
 export default {
@@ -57,13 +57,6 @@ export default {
   components: { DataTable },
   computed: {
     ...mapState(useExaminerStore, ["examiners"]),
-  },
-  methods: {
-    ...mapActions(useExaminerStore, ["fetchExaminers"]),
-  },
-  mounted() {
-    this.loading = true;
-    this.fetchExaminers().then(() => (this.loading = false));
   },
 };
 </script>

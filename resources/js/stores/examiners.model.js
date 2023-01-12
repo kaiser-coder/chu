@@ -19,21 +19,29 @@ export const useExaminerStore = defineStore('examiners', {
 		}
 	},
 	actions: {
-		fetchExaminers() {
+		fetchExaminers(token) {
 			let getUrl = "/api/examiners";
 			return axios
-				.get(getUrl)
+				.get(getUrl, {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				})
 				.then(({ data }) => {
 					this.examiners = data.examiners;
 				})
 				.catch((error) => console.error(error))
 		},
-		submitExaminer(examiner) {
+		submitExaminer(token, examiner) {
 			let postUrl = "/api/examiners/new";
 			const formdata = createFormData(examiner);
 
 			return axios
-				.post(postUrl, formdata)
+				.post(postUrl, formdata, {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				})
 				.then((response) => {
 					this.examiners.push(response.data.examiner);
 					return response

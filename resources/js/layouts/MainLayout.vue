@@ -20,6 +20,8 @@ import Appbar from "../components/Appbar.vue";
 
 import { mapActions, mapState } from "pinia";
 import { useSidebarStore } from "../stores/sidebar";
+import { useExaminerStore } from "../stores/examiners.model";
+import { usePatientStore } from "../stores/patients.model";
 
 export default {
   data() {
@@ -40,6 +42,8 @@ export default {
       "setNavigationDrawer",
       "setActivePageName",
     ]),
+    ...mapActions(useExaminerStore, ["fetchExaminers"]),
+    ...mapActions(usePatientStore, ["fetchPatients"]),
 
     definePageName() {
       // TODO: Try to fix page title when on main page after reload
@@ -51,7 +55,10 @@ export default {
       this.setActivePageName(pageName.title); */
     },
     init() {
-      this.definePageName();
+      const token = this.$session.get("app_token");
+
+      this.fetchExaminers(token);
+      this.fetchPatients(token);
     },
   },
   beforeMount() {

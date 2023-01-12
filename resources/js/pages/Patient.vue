@@ -17,7 +17,7 @@
 
 <script>
 import DataTable from "../components/DataTable.vue";
-import { mapActions, mapState } from "pinia";
+import { mapState } from "pinia";
 
 import { usePatientStore } from "../stores/patients.model";
 
@@ -86,13 +86,6 @@ export default {
   },
   computed: {
     ...mapState(usePatientStore, { items: "patients" }),
-  },
-  methods: {
-    ...mapActions(usePatientStore, ["fetchPatients"]),
-  },
-  mounted() {
-    this.loading = true;
-    this.fetchPatients().then(() => (this.loading = false));
   },
 };
 </script>

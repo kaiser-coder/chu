@@ -9,10 +9,14 @@ export const usePatientStore = defineStore('patients', {
 		}
 	},
 	actions: {
-		fetchPatients() {
+		fetchPatients(token) {
 			let getUrl = "/api/patients";
 			return axios
-				.get(getUrl)
+				.get(getUrl, {
+					headers: {
+						'Authorization': `Bearer ${token}`
+					}
+				})
 				.then(({ data }) => {
 					this.patients = data.patients;
 				})
