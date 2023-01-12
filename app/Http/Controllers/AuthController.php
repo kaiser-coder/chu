@@ -19,9 +19,9 @@ class AuthController extends Controller
 					return response()->json(['token' => $token->plainTextToken], Response::HTTP_OK);
 				}
 
-				return response()->json(['message' => 'Wrong password'], Response::HTTP_NOT_FOUND);
+				return response()->json(['message' => __('validation.password')], Response::HTTP_NOT_FOUND);
 			} else {
-				return response()->json(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+				return response()->json(['message' => __('passwords.user')], Response::HTTP_NOT_FOUND);
 			}
 
     }

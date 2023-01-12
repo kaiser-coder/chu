@@ -21,9 +21,16 @@
               </div>
             </v-col>
             <v-col class="pa-0" lg="6">
-              <v-form class="pa-10" lazy-validation ref="form">
-                <v-card-title class="pl-0 mb-5 d-flex flex-column justify-center">
-                  <v-img src="../img/saina.jpg" class="mb-2" height="100%"></v-img>
+              <v-form
+                class="pa-10"
+                lazy-validation
+                ref="form"
+                @submit.prevent="handleSubmit"
+              >
+                <v-card-title
+                  class="pl-0 mb-5 d-flex flex-column justify-center"
+                >
+                  <!-- <v-img src="../img/saina.jpg" class="mb-2" height="100%"></v-img> -->
                   <h5>Connectez vous à votre compte</h5>
                 </v-card-title>
                 <v-card-text>
@@ -60,7 +67,7 @@
                 <v-card-actions>
                   <v-row>
                     <v-col cols="12">
-                      <v-btn width="100%" color="primary" @click="sign">
+                      <v-btn width="100%" color="primary" type="submit">
                         Me connecter
                       </v-btn>
                     </v-col>
@@ -94,7 +101,8 @@ export default {
         password: [
           (v) => !!v || "Le mot de passe est requis",
           (v) =>
-            v.length > 4 || "Le mot de passe doit comporter 04 caractères au minimum",
+            v.length > 4 ||
+            "Le mot de passe doit comporter 04 caractères au minimum",
         ],
       },
       alert: {
@@ -104,7 +112,7 @@ export default {
     };
   },
   methods: {
-    sign() {
+    handleSubmit() {
       const isValid = this.$refs.form.validate();
 
       if (isValid) {
@@ -117,7 +125,7 @@ export default {
 
         this.isLoading = true;
         axios
-          .post("/api/auth", formData)
+          .post("/api/login", formData)
           .then((result) => {
             const { data } = result;
 
@@ -125,11 +133,10 @@ export default {
             this.$session.set("app_token", data.token);
             this.$router.push("/app/dashboard");
           })
-          .catch((error) => {
-            this.alert.message = "Utilisateur introuvable";
+          .catch(({ response }) => {
+            const { message } = response.data;
+            this.alert.message = message;
             this.alert.state = true;
-
-            console.error(error);
           })
           .finally(() => {
             this.isLoading = false;
