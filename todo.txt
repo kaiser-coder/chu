@@ -1,7 +1,7 @@
 Boutons editer - supprimer (avec confirmations) - voir les détails pages: patients - examinateurs
 Tester le formulaire de création pour les patients
 Formulaires d'édition
-Login admin - logout
+Login admin - logout ✔
 Réparer le breadcrumb
 réparer le bouton toggle du menu ✔
 Acceuil Statistiques ✔
