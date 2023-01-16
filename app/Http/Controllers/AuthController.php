@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 			if(Auth::attempt($request->toArray())) {
-				$token = Auth::user()->createToken('token');
+				$token = Auth::user()->createToken('login');
 				return response()->json(
 					[
 						'token' => $token->plainTextToken,
