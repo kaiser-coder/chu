@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,23 +12,29 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-			$user = User::firstWhere(['email' => $request->email]);
-
-			if($user) {
-				if(Hash::check($request->password, $user->password)) {
-					$token = $user->createToken($user);
-					return response()->json(['token' => $token->plainTextToken], Response::HTTP_OK);
-				}
-
-				return response()->json(['message' => __('validation.password')], Response::HTTP_NOT_FOUND);
+			if(Auth::attempt($request->toArray())) {
+				$token = Auth::user()->createToken('token');
+				return response()->json(
+					[
+						'token' => $token->plainTextToken,
+						'token_id' => $token->accessToken->getAttributeValue('id')
+					],
+					Response::HTTP_OK
+				);
 			} else {
 				return response()->json(['message' => __('passwords.user')], Response::HTTP_NOT_FOUND);
 			}
-
     }
 
     public function logout(Request $request)
     {
-        # code...
+			$user = User::find($request->user_id);
+			$is_token_deleted = $user->tokens()->where('id', $request->token_id)->delete();
+
+			if($is_token_deleted) {
+				return response()->json(['message' => 'Logout successfully'], Response::HTTP_OK);
+			}
+
+			return response()->json(['message' => 'Something wrong happened'], Response::HTTP_BAD_REQUEST);
     }
 }

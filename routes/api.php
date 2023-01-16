@@ -19,6 +19,7 @@ use App\Http\Controllers\PatientController;
 */
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth:sanctum'])
 	->prefix('/examiners')
