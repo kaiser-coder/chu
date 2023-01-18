@@ -45,20 +45,26 @@ export default {
     ...mapActions(useExaminerStore, ["fetchExaminers"]),
     ...mapActions(usePatientStore, ["fetchPatients"]),
 
-    definePageName() {
-      // TODO: Try to fix page title when on main page after reload
-      /* const path = this.$router.history.current.path;
+    definePagename(router) {
+      const path = router.history.current.path;
       const pageName = this.items.filter((i) => {
         return i.path === path;
       })[0];
 
-      this.setActivePageName(pageName.title); */
+      this.setActivePageName(pageName.title);
     },
     init() {
       const token = this.$session.get("app_token");
 
       this.fetchExaminers(token);
       this.fetchPatients(token);
+
+      this.definePagename(this.$router);
+    },
+  },
+  watch: {
+    $route(to, from) {
+      this.definePagename(to);
     },
   },
   beforeMount() {
