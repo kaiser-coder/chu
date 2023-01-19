@@ -1,36 +1,17 @@
 <template>
   <v-card class="mt-5">
     <v-card-title>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Rechercher..."
-        outlined
-        dense
-        hide-details
-      ></v-text-field>
+      <v-text-field v-model="search" append-icon="mdi-magnify" label="Rechercher..." outlined dense hide-details></v-text-field>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :search="search"
-      :loading="loading"
-      loading-text="Chargement ..."
-    >
+    <v-data-table :headers="headers" :items="items" :search="search" :loading="loading" loading-text="Chargement ...">
       <template v-slot:top>
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
-            <v-card-title class="text-h5"
-              >Voulez-vous supprimer cette ligne?</v-card-title
-            >
+            <v-card-title class="text-h5">Voulez-vous supprimer cette ligne?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete"
-                >Annuler</v-btn
-              >
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                >OK</v-btn
-              >
+              <v-btn color="blue darken-1" text @click="closeDelete">Annuler</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -45,15 +26,15 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
-import { useExaminerStore } from "../stores/examiners.model";
+import { mapActions } from "pinia"
+import { useExaminerStore } from "../stores/examiners.model"
 export default {
   data() {
     return {
       search: "",
       dialogDelete: false,
       activeItem: {},
-    };
+    }
   },
   props: {
     headers: Array,
@@ -66,25 +47,22 @@ export default {
 
     editItem(item) {
       if (this.itemsType === "examiner") {
-        this.setActiveExaminerToEdit(item);
-        this.$router.push({ name: "examiner_edit" });
+        this.setActiveExaminerToEdit(item)
+        this.$router.push({ name: "examiner_edit" })
       }
     },
     deleteItem(item) {
-      this.dialogDelete = true;
-      this.activeItem = item;
-      console.log("🚀 ~ file: DataTable.vue:38 ~ deleteItem ~ item", item);
+      this.dialogDelete = true
+      this.activeItem = item
+      console.log("🚀 ~ file: DataTable.vue:38 ~ deleteItem ~ item", item)
     },
     closeDelete() {
-      this.dialogDelete = false;
+      this.dialogDelete = false
     },
     deleteItemConfirm() {
-      console.log(
-        "🚀 ~ file: DataTable.vue:67 ~ deleteItemConfirm ~ activeItem",
-        this.activeItem
-      );
-      this.closeDelete();
+      console.log("🚀 ~ file: DataTable.vue:67 ~ deleteItemConfirm ~ activeItem", this.activeItem)
+      this.closeDelete()
     },
   },
-};
+}
 </script>

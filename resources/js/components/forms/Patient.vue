@@ -2,58 +2,17 @@
   <v-container>
     <v-form lazy-validation ref="form">
       <v-row>
-        <v-col lg="12" class="pa-0"
-          ><v-select
-            label="Genre"
-            outlined
-            dense
-            :items="['Homme', 'Femme']"
-            required
-            name="gender"
-            :rules="rules.gender"
-            v-model="patient.gender"
-          ></v-select
-        ></v-col>
+        <v-col lg="12" class="pa-0"><v-select label="Genre" outlined dense :items="['Homme', 'Femme']" required name="gender" :rules="rules.gender" v-model="patient.gender"></v-select></v-col>
       </v-row>
       <v-row>
-        <v-col lg="12" class="pa-0"
-          ><v-text-field
-            label="Nom"
-            outlined
-            dense
-            type="text"
-            required
-            name="firstname"
-            :rules="rules.firstname"
-            v-model="patient.firstname"
-          ></v-text-field
-        ></v-col>
+        <v-col lg="12" class="pa-0"><v-text-field label="Nom" outlined dense type="text" required name="firstname" :rules="rules.firstname" v-model="patient.firstname"></v-text-field></v-col>
       </v-row>
       <v-row>
-        <v-col lg="12" class="pa-0"
-          ><v-text-field
-            label="Prénom"
-            outlined
-            dense
-            type="text"
-            name="lastname"
-            :rules="rules.lastname"
-            v-model="patient.lastname"
-          ></v-text-field
-        ></v-col>
+        <v-col lg="12" class="pa-0"><v-text-field label="Prénom" outlined dense type="text" name="lastname" :rules="rules.lastname" v-model="patient.lastname"></v-text-field></v-col>
       </v-row>
       <v-row>
         <v-col lg="6" class="px-0 pr-1"
-          ><v-text-field
-            label="Date de naissance"
-            outlined
-            dense
-            type="date"
-            required
-            name="birthdate"
-            :rules="rules.birthdate"
-            v-model="patient.birthdate"
-          ></v-text-field
+          ><v-text-field label="Date de naissance" outlined dense type="date" required name="birthdate" :rules="rules.birthdate" v-model="patient.birthdate"></v-text-field
         ></v-col>
         <!-- TODO: Automatically generate -->
         <!--  <v-col lg="6" class="px-0 pl-1"
@@ -71,51 +30,22 @@
       </v-row>
       <v-row>
         <v-col lg="12" class="pa-0">
-          <v-text-field
-            label="Adresse"
-            outlined
-            dense
-            type="text"
-            required
-            name="address"
-            :rules="rules.address"
-            v-model="patient.address"
-          ></v-text-field>
+          <v-text-field label="Adresse" outlined dense type="text" required name="address" :rules="rules.address" v-model="patient.address"></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col lg="12" class="pa-0">
-          <v-text-field
-            label="Profession"
-            outlined
-            dense
-            type="text"
-            required
-            name="profession"
-            :rules="rules.job"
-            v-model="patient.job"
-          ></v-text-field>
+          <v-text-field label="Profession" outlined dense type="text" required name="profession" :rules="rules.job" v-model="patient.job"></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col lg="12" class="pa-0">
-          <v-textarea
-            label="* Remarque"
-            outlined
-            dense
-            type="text"
-            required
-            name="remarque"
-            :rules="rules.observation"
-            v-model="patient.observation"
-          ></v-textarea>
+          <v-textarea label="* Remarque" outlined dense type="text" required name="remarque" :rules="rules.observation" v-model="patient.observation"></v-textarea>
         </v-col>
       </v-row>
       <v-row class="mb-2">
         <v-col cols="6" class="pa-0">
-          <v-btn color="primary" class="mr-1" @click="handleClick">
-            Continuer
-          </v-btn>
+          <v-btn color="primary" class="mr-1" @click="handleClick"> Continuer </v-btn>
           <v-btn text @click="dialog = false"> Abandonner </v-btn>
         </v-col>
       </v-row>
@@ -124,9 +54,9 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
-import { useStepperStore } from "../../stores/stepper";
-import { usePatientStore } from "../../stores/patients.model";
+import { mapActions } from "pinia"
+import { useStepperStore } from "../../stores/stepper"
+import { usePatientStore } from "../../stores/patients.model"
 
 export default {
   data() {
@@ -142,18 +72,18 @@ export default {
         // observation: [(v) => !!v || "Le champ remarque est requis"],
       },
       patient: {},
-    };
+    }
   },
   methods: {
     ...mapActions(useStepperStore, ["switchStep"]),
     ...mapActions(usePatientStore, ["setActivePatient"]),
 
     handleClick() {
-      const isValid = this.$refs.form.validate();
+      const isValid = this.$refs.form.validate()
 
-      this.switchStep(2);
-      this.setActivePatient({ patient: this.patient });
+      this.switchStep(2)
+      this.setActivePatient({ patient: this.patient })
     },
   },
-};
+}
 </script>

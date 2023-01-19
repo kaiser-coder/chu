@@ -4,57 +4,22 @@
       <section>
         <v-row>
           <v-col cols="12" class="pa-0">
-            <v-select
-              label="Docteur"
-              outlined
-              dense
-              :items="selectItems"
-              required
-              name="id_medecin"
-              :rules="rules.examiner"
-              v-model="examination.examiner_id"
-            ></v-select>
+            <v-select label="Docteur" outlined dense :items="selectItems" required name="id_medecin" :rules="rules.examiner" v-model="examination.examiner_id"></v-select>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="6" class="px-0 pr-1">
-            <v-text-field
-              label="Date de consultation"
-              outlined
-              dense
-              type="date"
-              required
-              name="date_consul"
-              :rules="rules.date"
-              v-model="examination.date"
-            ></v-text-field>
+            <v-text-field label="Date de consultation" outlined dense type="date" required name="date_consul" :rules="rules.date" v-model="examination.date"></v-text-field>
           </v-col>
           <v-col cols="6" class="px-0 pl-1">
-            <v-text-field
-              label="Heure de la consultation"
-              outlined
-              dense
-              type="time"
-              required
-              name="heure"
-              :rules="examination.time"
-              v-model="examination.time"
-            ></v-text-field>
+            <v-text-field label="Heure de la consultation" outlined dense type="time" required name="heure" :rules="examination.time" v-model="examination.time"></v-text-field>
           </v-col>
         </v-row>
       </section>
 
       <v-row>
         <v-col cols="12" class="px-0">
-          <v-select
-            label="Type d'accident"
-            outlined
-            dense
-            name="type"
-            :items="cases"
-            v-model="examination.accident_type"
-            required
-          ></v-select>
+          <v-select label="Type d'accident" outlined dense name="type" :items="cases" v-model="examination.accident_type" required></v-select>
         </v-col>
       </v-row>
 
@@ -82,70 +47,25 @@
           </v-row>
           <v-row>
             <v-col cols="6" class="px-0 pr-1">
-              <v-text-field
-                label="Nom du conducteur"
-                outlined
-                dense
-                type="text"
-                name="nom"
-                :rules="rules.name"
-                v-model="responsible_driver.lastname"
-                required
-              ></v-text-field>
+              <v-text-field label="Nom du conducteur" outlined dense type="text" name="nom" :rules="rules.name" v-model="responsible_driver.lastname" required></v-text-field>
             </v-col>
             <v-col cols="6" class="px-0 pl-1">
-              <v-text-field
-                label="Prénom du conducteur"
-                outlined
-                dense
-                type="text"
-                name="prenom"
-                :rules="rules.firstname"
-                v-model="responsible_driver.firstname"
-                required
-              ></v-text-field>
+              <v-text-field label="Prénom du conducteur" outlined dense type="text" name="prenom" :rules="rules.firstname" v-model="responsible_driver.firstname" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" class="pa-0">
-              <v-text-field
-                label="Contact du responsable"
-                outlined
-                dense
-                type="text"
-                name="contact"
-                :rules="rules.contact"
-                v-model="responsible_driver.contact"
-                required
-              ></v-text-field>
+              <v-text-field label="Contact du responsable" outlined dense type="text" name="contact" :rules="rules.contact" v-model="responsible_driver.contact" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" class="pa-0">
-              <v-text-field
-                label="Adresse"
-                outlined
-                dense
-                type="text"
-                name="adresse"
-                :rules="rules.address"
-                v-model="responsible_driver.address"
-                required
-              ></v-text-field>
+              <v-text-field label="Adresse" outlined dense type="text" name="adresse" :rules="rules.address" v-model="responsible_driver.address" required></v-text-field>
             </v-col>
           </v-row>
           <v-row>
             <v-col col="12" class="pa-0">
-              <v-text-field
-                label="N° du CIN"
-                outlined
-                dense
-                type="text"
-                name="cin"
-                :rules="rules.identity_card"
-                v-model="responsible_driver.identity_card"
-                required
-              ></v-text-field>
+              <v-text-field label="N° du CIN" outlined dense type="text" name="cin" :rules="rules.identity_card" v-model="responsible_driver.identity_card" required></v-text-field>
             </v-col>
           </v-row>
         </section>
@@ -175,16 +95,7 @@
         </v-row>
         <v-row>
           <v-col cols="12" class="pa-0">
-            <v-select
-              label="Victime"
-              outlined
-              dense
-              :items="['Passager', 'Piéton']"
-              name="victime"
-              :rules="rules.victim"
-              v-model="cause.victim_category"
-              required
-            ></v-select>
+            <v-select label="Victime" outlined dense :items="['Passager', 'Piéton']" name="victime" :rules="rules.victim" v-model="cause.victim_category" required></v-select>
           </v-col>
         </v-row>
         <v-row v-show="examination.type === 'A.T'">
@@ -203,64 +114,27 @@
         </v-row>
         <v-row v-show="examination.type === 'A.T'">
           <v-col cols="12" class="pa-0">
-            <v-select
-              label="Sécurité"
-              outlined
-              dense
-              :items="['Aucun', 'Ceinturé', 'Casqué']"
-              :rules="rules.security"
-              v-model="cause.security"
-              name="securite"
-              required
-            ></v-select>
+            <v-select label="Sécurité" outlined dense :items="['Aucun', 'Ceinturé', 'Casqué']" :rules="rules.security" v-model="cause.security" name="securite" required></v-select>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" class="pa-0">
-            <v-select
-              label="Autres"
-              outlined
-              dense
-              :items="['Aucun', 'Alcool', 'Médicaments', 'Stupéfiants']"
-              :rules="rules.others"
-              v-model="cause.others"
-              name="autre"
-              required
-            ></v-select>
+            <v-select label="Autres" outlined dense :items="['Aucun', 'Alcool', 'Médicaments', 'Stupéfiants']" :rules="rules.others" v-model="cause.others" name="autre" required></v-select>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" class="pa-0">
-            <v-textarea
-              label="Motif et histoire de la maladie"
-              outlined
-              dense
-              type="text"
-              name="histoire"
-              :rules="rules.history"
-              v-model="examination.histoire"
-              required
-            ></v-textarea>
+            <v-textarea label="Motif et histoire de la maladie" outlined dense type="text" name="histoire" :rules="rules.history" v-model="examination.histoire" required></v-textarea>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" class="pa-0">
-            <v-textarea
-              label="Examen clinique et préscription"
-              outlined
-              dense
-              type="text"
-              name="examen"
-              v-model="examination.examen"
-              required
-            ></v-textarea>
+            <v-textarea label="Examen clinique et préscription" outlined dense type="text" name="examen" v-model="examination.examen" required></v-textarea>
           </v-col>
         </v-row>
         <v-row class="mb-2">
           <v-col cols="6" class="pa-0">
-            <v-btn color="primary" class="mr-1" @click="handleClick">
-              Continuer
-            </v-btn>
+            <v-btn color="primary" class="mr-1" @click="handleClick"> Continuer </v-btn>
             <v-btn text> Abandonner </v-btn>
           </v-col>
         </v-row>
@@ -270,10 +144,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "pinia";
-import { useExaminerStore } from "../../stores/examiners.model";
-import { useStepperStore } from "../../stores/stepper";
-import { usePatientStore } from "../../stores/patients.model";
+import { mapActions, mapState } from "pinia"
+import { useExaminerStore } from "../../stores/examiners.model"
+import { useStepperStore } from "../../stores/stepper"
+import { usePatientStore } from "../../stores/patients.model"
 
 export default {
   data() {
@@ -294,21 +168,11 @@ export default {
         history: [(v) => !!v || "Le champ histoire est requis"],
         examination: [(v) => !!v || "Le champ examen est requis"],
       },
-      cases: [
-        "A.T",
-        "A.Sco",
-        "A.D",
-        "A.Spo",
-        "A.R.C",
-        "Eva.San",
-        "Cas.Med",
-        "A.V.P",
-        "A.C",
-      ],
+      cases: ["A.T", "A.Sco", "A.D", "A.Spo", "A.R.C", "Eva.San", "Cas.Med", "A.V.P", "A.C"],
       responsible_driver: {},
       examination: {},
       cause: {},
-    };
+    }
   },
   methods: {
     ...mapActions(useExaminerStore, ["fetchExaminers"]),
@@ -316,35 +180,35 @@ export default {
     ...mapActions(usePatientStore, ["setActivePatient"]),
 
     handleClick() {
-      const isValid = this.$refs.form.validate();
+      const isValid = this.$refs.form.validate()
 
-      this.switchStep(4);
+      this.switchStep(4)
       this.setActivePatient({
         responsible_driver: this.responsible_driver,
         examination: this.examination,
         cause: this.cause,
-      });
+      })
     },
   },
   computed: {
     ...mapState(useExaminerStore, ["examiners"]),
 
     selectItems() {
-      let items = [];
+      let items = []
 
       this.examiners.map((e) => {
-        const { id, name } = e;
+        const { id, name } = e
         items.push({
           value: id,
           text: name,
-        });
-      });
+        })
+      })
 
-      return items;
+      return items
     },
   },
   mounted() {
-    this.fetchExaminers();
+    this.fetchExaminers()
   },
-};
+}
 </script>

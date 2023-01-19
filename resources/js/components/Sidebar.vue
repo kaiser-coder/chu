@@ -1,11 +1,5 @@
 <template>
-  <v-navigation-drawer
-    color="primary"
-    dense
-    dark
-    app
-    v-model="navigationDrawer"
-  >
+  <v-navigation-drawer color="primary" dense dark app v-model="navigationDrawer">
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6"> Application </v-list-item-title>
@@ -16,12 +10,7 @@
     <v-divider></v-divider>
 
     <v-list dense nav>
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        link
-        @click="setActivePageName(item.title)"
-      >
+      <v-list-item v-for="item in items" :key="item.title" link @click="setActivePageName(item.title)">
         <v-list-item-content class="pl-10">
           <v-list-item-title>
             <router-link :to="item.path">
@@ -35,8 +24,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "pinia";
-import { useSidebarStore } from "../stores/sidebar";
+import { mapState, mapActions } from "pinia"
+import { useSidebarStore } from "../stores/sidebar"
 
 export default {
   props: {
@@ -48,7 +37,7 @@ export default {
   methods: {
     ...mapActions(useSidebarStore, ["setActivePageName"]),
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

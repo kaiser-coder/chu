@@ -3,16 +3,7 @@
     <v-form lazy-validation ref="form">
       <v-row>
         <v-col cols="12" class="pa-0">
-          <v-select
-            label="Type"
-            outlined
-            dense
-            name="type"
-            :items="types"
-            required
-            :rules="rules.type"
-            v-model="treatment.type"
-          ></v-select>
+          <v-select label="Type" outlined dense name="type" :items="types" required :rules="rules.type" v-model="treatment.type"></v-select>
         </v-col>
       </v-row>
       <v-row>
@@ -31,9 +22,7 @@
       </v-row>
       <v-row class="mb-2">
         <v-col cols="6" class="pa-0">
-          <v-btn color="primary" class="mr-1" @click="handleSubmit">
-            Soumettre
-          </v-btn>
+          <v-btn color="primary" class="mr-1" @click="handleSubmit"> Soumettre </v-btn>
           <v-btn @click="handleReset"> Abandonner </v-btn>
         </v-col>
       </v-row>
@@ -42,8 +31,8 @@
 </template>
 
 <script>
-import { mapActions } from "pinia";
-import { usePatientStore } from "../../stores/patients.model";
+import { mapActions } from "pinia"
+import { usePatientStore } from "../../stores/patients.model"
 
 export default {
   data() {
@@ -72,20 +61,20 @@ export default {
         "Radio bassin",
         "Radio dorsale",
       ],
-    };
+    }
   },
   methods: {
     ...mapActions(usePatientStore, ["setActivePatient"]),
 
     handleSubmit() {
-      const isValid = this.$refs.form.validate();
+      const isValid = this.$refs.form.validate()
 
-      this.setActivePatient({ treatment: this.treatment });
+      this.setActivePatient({ treatment: this.treatment })
     },
     handleReset() {
-      console.log("handleReset");
-      this.$emit("onResetForm");
+      console.log("handleReset")
+      this.$emit("onResetForm")
     },
   },
-};
+}
 </script>
